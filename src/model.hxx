@@ -4,5 +4,5 @@
 
 class Model
 {
-
+    void test();
 };
