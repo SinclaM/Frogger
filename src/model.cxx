@@ -34,10 +34,10 @@ Model::move_frog(Model::Direction dir)
     }
 }
 
-Model::Position
-Model::frog_position() const
+Frog
+Model::frog() const
 {
-    return frog_.top_left();
+    return frog_;
 }
 
 

@@ -6,7 +6,7 @@ Game_config::Game_config()
           hop_dist(50),
           start{500, 900},
           lifetime(60),
-          hop_time(5)
+          hop_time(7)
 { }
 
 bool

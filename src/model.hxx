@@ -44,6 +44,6 @@ public:
     /// Move the frog in a direction (called by controller)
     void move_frog(Direction);
 
-    /// Gets frog position (top left)
-    Position frog_position() const;
+    /// Gets frog
+    Frog frog() const;
 };
