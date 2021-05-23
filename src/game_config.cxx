@@ -22,3 +22,5 @@ Game_config::in_scene(Game_config::Rectangle const rect) const
     return in_scene(rect.top_left()) && in_scene(rect.bottom_left()) &&
            in_scene(rect.top_right()) && in_scene(rect.bottom_right());
 }
+
+

@@ -1,17 +1,23 @@
 #include "model.hxx"
 
 Model::Model(Game_config const& config)
-        : config(config),
-          frog_(config),
+        : frog_(config),
           time_left_(config.lifetime),
-          cool_down(config.hop_time)
+          cool_down(config.hop_time),
+          config(config)
 { }
 
 void
 Model::on_frame(double dt)
 {
     if(cool_down > 0){
-        cool_down--;
+        // Have to make sure subtracted dt will not make cool_down less
+        // than zero
+        if(cool_down > dt){
+            cool_down -= dt;
+        }else{
+            cool_down = 0;
+        }
     }
     // TODO: Simulation of cars, turtles, logs, etc. moving
 }
