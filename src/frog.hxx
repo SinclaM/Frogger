@@ -27,7 +27,7 @@ public:
     /// Move body_ by the step size in the specified direction
     void move(Direction, Game_config const&);
 
-    /// Move body_ to specified position
+    /// Move body_ (top left_ to specified position
     void move_to(Position, Game_config const&);
 
     /// Gets top left of frog's body

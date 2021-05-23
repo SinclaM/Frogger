@@ -19,16 +19,19 @@ public:
     using Rectangle = ge211::Rect<int>;
 
 private:
-    /// The game config
-    Game_config const config_;
-
     /// The frog
     Frog frog_;
 
     /// The time left on the timer
-    int time_left_;
+    size_t time_left_;
+
+    /// Cool-down so that the frog can't move so fast
+    size_t cool_down;
 
 public:
+    /// The game config
+    Game_config const config;
+
     /// Constructor
     explicit Model(Game_config const& config = Game_config());
 

@@ -17,10 +17,14 @@ public:
     void on_frame(double dt) override;
 
 protected:
-    void draw(ge211::Sprite_set& set) override;
+    /// These three delegate to the view:
+    void draw(ge211::Sprite_set&) override;
+    View::Dimensions initial_window_dimensions() const override;
+    std::string initial_window_title() const override;
 
     /// Defines how the game responds to key events.
     void on_key(ge211::Key) override;
+
 
 private:
     Model model_;

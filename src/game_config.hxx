@@ -28,7 +28,10 @@ struct Game_config{
     Position start;
 
     /// The time a frog has to reach a home
-    int lifetime;
+    size_t lifetime;
+
+    /// The minimum time between frog hops
+    size_t hop_time;
 
     /// Returns whether a position is a valid position on screen
     bool in_scene(Position const) const;
