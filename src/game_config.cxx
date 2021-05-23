@@ -4,7 +4,7 @@ Game_config::Game_config()
         : scene_dims{1000, 1000},
           frog_dims{50, 50},
           hop_dist(50),
-          start{500, 500},
+          start{500, 900},
           lifetime(60),
           hop_time(5)
 { }

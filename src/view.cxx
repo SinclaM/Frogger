@@ -4,7 +4,7 @@ static ge211::Color frog_color{255, 0, 0};
 
 View::View(Model const& model)
         : model_(model),
-          frog_sprite("frog.png")
+          frog_sprite(model.config.frog_dims, frog_color)
 { }
 
 void

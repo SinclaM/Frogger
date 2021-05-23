@@ -28,5 +28,6 @@ private:
     Model const& model_;
 
     // TODO: Figure out how to use Image_sprites. This is too small.
-    ge211::Image_sprite const frog_sprite;
+    // ge211::Image_sprite const frog_sprite;
+    ge211::Rectangle_sprite const frog_sprite;
 };
