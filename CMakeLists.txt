@@ -10,7 +10,8 @@ include(.cs211/cmake/CMakeLists.txt)
 set(MODEL_SRC
         src/model.cxx
         src/frog.cxx
-        src/game_config.cxx)
+        src/game_config.cxx
+        src/interactive_object.cxx)
 
 # TODO: PUT ADDITIONAL NON-MODEL (UI) .cxx FILES IN THIS LIST:
 add_program(${GAME_EXE}
