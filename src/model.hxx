@@ -6,6 +6,8 @@
 
 #include "frog.hxx"
 
+#include "interactive_object.hxx"
+
 class Model
 {
 public:

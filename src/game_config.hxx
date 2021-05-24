@@ -33,9 +33,24 @@ struct Game_config{
     /// The minimum time between frog hops
     size_t hop_time;
 
+    /// Car dimensions
+    Dimension car_dims;
+
+    /// Velocities of objects for each given row
+    std::vector<int> row_velocities;
+
+    /// Number of cars in row 1
+    int cars_row1;
+
+
+
+
     /// Returns whether a position is a valid position on screen
     bool in_scene(Position const) const;
 
     /// Returns whether a rectangle fits on screen
     bool in_scene(Rectangle const) const;
+
+    /// Returns the row velocity
+    int row_velocity(int const) const;
 };
