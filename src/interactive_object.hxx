@@ -29,11 +29,11 @@ class Interactive_object
     /// Default constructor
     explicit Interactive_object(Game_config const&, object_type, int, Position);
 
-    /// Moves the object
-    void move(int , Game_config const&);
+    /// Moves the object to the desired x value
+    void move_to(int x, Game_config const&);
 
     /// Moves the object in time one frame
-    void move_to(Game_config const&);
+    void move(Game_config const&);
 
 private:
 
@@ -51,7 +51,4 @@ private:
 
     /// Determines if the interactive object has the ability to kill
     bool hostile_;
-
-
-
 };
