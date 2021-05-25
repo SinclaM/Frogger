@@ -10,6 +10,8 @@
 
 #include "coaster.hxx"
 
+#include "clock.hxx"
+
 using namespace std;
 
 class Model
@@ -29,11 +31,11 @@ private:
     /// The frog
     Frog frog_;
 
-    /// The time left on the timer
-    unsigned int time_left_;
+    /// The clock tracking the time the frog has left to reach a home
+    Clock life_clock_;
 
-    /// Cool-down so that the frog can't move so fast
-    unsigned int cool_down_;
+    /// Clock which imposes a cool down on frog movement
+    Clock hop_clock_;
 
     /// An integer used to determine whether the frame is even or odd, used
     /// to make objects move at speeds less than 1 pixel per frame. Iterates
@@ -44,7 +46,7 @@ private:
     Rectangle kill_zone_;
 
     /// The time the frog waits before resetting after dying
-    unsigned int time_to_reset_;
+    Clock reset_clock_;
 
     /// Vector of Vectors conataining the interactive objects in each row
     vector<vector<coaster>> coaster_;
