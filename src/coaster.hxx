@@ -5,8 +5,9 @@
 #include "game_config.hxx"
 
 /// Interactive objects within the game
-class Interactive_object
+class coaster
 {
+public:
     //
     // TYPE ALIASES
     //
@@ -15,19 +16,19 @@ class Interactive_object
     /// It has not been made an enum class because using dims simplifies
     /// many operations
     using Direction = ge211::Dims<int>;
-    using Dimesion = ge211::Dims<int>;
+    using Dimension = ge211::Dims<int>;
     using Position = ge211::Posn<int>;
     using Rectangle = ge211::Rect<int>;
+
+    enum type {lilypad, occupied_lilypad, short_log, medium_log,
+        long_log, turtle, submerged_turtle, car};
 
     //
     // PUBLIC MEMBER FUNCTIONS
     //
 
-    enum object_type {lilypad, occupied_lilypad, short_log, medium_log,
-            long_log, turtle, submerged_turtle, car};
-
     /// Default constructor
-    explicit Interactive_object(Game_config const&, object_type, int, Position);
+    explicit coaster(Game_config const&, type, int, Position);
 
     /// Moves the object to the desired x value
     void move_to(int x, Game_config const&);
@@ -35,13 +36,16 @@ class Interactive_object
     /// Moves the object in time one frame
     void move(Game_config const&);
 
+    /// Returns the position of the interactive object
+    Position interactive_pos() const;
+
 private:
 
     /// The objects hit box
     Rectangle body_;
 
     /// Object Type
-    object_type type_;
+    type type_;
 
     /// Specifies which row the object is int
     int row_;

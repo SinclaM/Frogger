@@ -36,11 +36,17 @@ struct Game_config{
     /// Car dimensions
     Dimension car_dims;
 
+    /// The water kill_zone
+    Rectangle kill_zone;
+
+    /// Time the frog waits, dead, before resetting
+    unsigned int reset_wait_time;
+
     /// Velocities of objects for each given row
     std::vector<int> row_velocities;
 
-    /// Number of cars in row 1
-    int cars_row1;
+    /// Number of cars in each row
+    std::vector<int> car_rows;
 
     /// The water kill_zone
     Rectangle kill_zone;

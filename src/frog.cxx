@@ -2,10 +2,10 @@
 
 
 Frog::Frog(Game_config const& config)
-        : body_{config.start.x - config.frog_dims.width / 2, config.start.y,
-                config.frog_dims.width, config.frog_dims.height},
+        : body_(config.start.x - config.frog_dims.width / 2, config.start.y,
+                config.frog_dims.width, config.frog_dims.height),
           hop_dist_(config.hop_dist),
-          facing_{0, -1},
+          facing_(0, -1),
           alive(true)
 { }
 

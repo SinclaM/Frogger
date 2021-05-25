@@ -8,7 +8,9 @@ Model::Model(Game_config const& config)
           kill_zone_(config.kill_zone),
           time_to_reset_(config.reset_wait_time),
           config(config)
-{ }
+{
+
+}
 
 void
 Model::on_frame(double dt)
@@ -42,6 +44,7 @@ Model::on_frame(double dt)
     }
 
     // TODO: Simulation of cars, turtles, logs, etc. moving
+    move_coasters();
 }
 
 void
@@ -66,4 +69,22 @@ Frog
 Model::frog() const
 {
     return frog_;
+}
+
+void
+Model::move_coasters()
+{
+    for (auto& vec : coasters_)
+    {
+        for (auto& obj : vec)
+        {
+            obj.move(config);
+        }
+    }
+}
+
+Model::coaster_matrix
+Model::get_coasters() const
+{
+    return coasters_;
 }
