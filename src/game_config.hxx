@@ -55,6 +55,11 @@ struct Game_config{
     /// Returns whether a rectangle fits on screen
     bool in_scene(Rectangle const) const;
 
-    /// Returns the row velocity
+    /// Returns the row velocity in pixels per 4 frames
     int row_velocity(int const) const;
+
+
+    /// Returns whether or not a position is outside the object scene, which
+    /// is 105 pixels off either the left or right of the actual scene dims
+    bool in_object_scene(Position const) const;
 };
