@@ -1,19 +1,24 @@
 #include "view.hxx"
 
-static ge211::Color frog_color{255, 0, 0};
+static int background_layer = 0; // background scenery
+static int surface_layer = 1; // water, scoring, timer, life count
+static int entity_layer = 2; // cars, turtles, logs
+static int frog_layer = 3; // frog
 
 View::View(Model const& model)
         : model_(model),
           frog_up_sprite("frog_up.png"),
           frog_right_sprite("frog_right.png"),
           frog_down_sprite("frog_down.png"),
-          frog_left_sprite("frog_left.png")
+          frog_left_sprite("frog_left.png"),
+          background("background.png")
 { }
 
 void
 View::draw(ge211::Sprite_set& set)
 {
     // This needs to do something!
+    set.add_sprite(background, ge211::the_origin, background_layer);
     draw_frog(set);
 }
 
@@ -33,12 +38,16 @@ void
 View::draw_frog(ge211::Sprite_set& set)
 {
     if(model_.frog().facing() == Direction{0, -1}){
-        set.add_sprite(frog_up_sprite, model_.frog().top_left());
+        set.add_sprite(frog_up_sprite, model_.frog().top_left(),
+                       frog_layer);
     }else if(model_.frog().facing() == Direction{1, 0}){
-        set.add_sprite(frog_right_sprite, model_.frog().top_left());
+        set.add_sprite(frog_right_sprite, model_.frog().top_left(),
+                       frog_layer);
     }else if(model_.frog().facing() == Direction{0, 1}){
-        set.add_sprite(frog_down_sprite, model_.frog().top_left());
+        set.add_sprite(frog_down_sprite, model_.frog().top_left(),
+                       frog_layer);
     }else if(model_.frog().facing() == Direction{-1, 0}){
-        set.add_sprite(frog_left_sprite, model_.frog().top_left());
+        set.add_sprite(frog_left_sprite, model_.frog().top_left(),
+                       frog_layer);
     }
 }

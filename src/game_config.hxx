@@ -21,8 +21,8 @@ struct Game_config{
     /// Frog dimensions
     Dimension frog_dims;
 
-    /// Amount frog moves per step
-    int hop_dist;
+    /// Amount frog moves per step in the x and y directions
+    Dimension hop_dist;
 
     /// Starting position for frog
     Position start;

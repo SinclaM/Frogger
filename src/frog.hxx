@@ -56,8 +56,8 @@ private:
     /// The frog's hit box, a positioned rectangle
     Rectangle body_;
 
-    /// How far the frog moves per hop
-    int hop_dist_;
+    /// How far the frog moves per hop in x and y directions
+    Dimesion hop_dist_;
 
     /// The direction the frog is facing
     Direction facing_;

@@ -2,7 +2,7 @@
 
 
 Frog::Frog(Game_config const& config)
-        : body_{config.start.x, config.start.y,
+        : body_{config.start.x - config.frog_dims.width / 2, config.start.y,
                 config.frog_dims.width, config.frog_dims.height},
           hop_dist_(config.hop_dist),
           facing_{0, -1}
@@ -11,8 +11,7 @@ Frog::Frog(Game_config const& config)
 void
 Frog::move(Frog::Direction dir, Game_config const& config)
 {
-    if(move_to({body_.x + hop_dist_ * dir.width,
-                    body_.y + hop_dist_ * dir.height},
+    if(move_to(body_.top_left() + dir * hop_dist_,
                config)){
         facing_ = dir;
     }
