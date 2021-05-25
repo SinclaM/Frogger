@@ -3,12 +3,13 @@
 
 Model::Model(Game_config const& config)
         : frog_(config),
-          life_clock_(config.lifetime, false),
-          hop_clock_(config.hop_time, false),
+          time_left_(config.lifetime),
+          cool_down_(config.hop_time),
           frame_counter(0),
           kill_zone_(config.kill_zone),
-          reset_clock_(config.reset_wait_time, true),
+          time_to_reset_(config.reset_wait_time),
           config(config)
+
 {
     vector<coaster> vec0;
     int row_num = 0;
@@ -40,15 +41,30 @@ Model::Model(Game_config const& config)
 void
 Model::on_frame(double dt)
 {
-    hop_clock_.dec(dt);
-    reset_clock_.dec(dt);
     frame_counter++;
+    if(cool_down > 0){
+        // Have to make sure subtracted dt will not make cool_down less
+        // than zero
+        if(cool_down_ > dt){
+            cool_down_ -= dt;
+        }else{
+            cool_down_ = 0;
+        }
+    }
+
+    // update time_to_reset if, necessary
+    if(!frog_.alive && time_to_reset_ > 0){
+        if(time_to_reset_ > dt){
+            time_to_reset_ -= dt;
+        }else{
+            time_to_reset_ = 0;
+        }
+    }
 
     // check if frog is in kill_zone
     if(frog_.hits(kill_zone_)){
         frog_.alive = false;
-        reset_clock_.resume();
-        if(reset_clock_.time() == 0){
+        if(time_to_reset_ == 0) {
             reset_frog();
         }
     }
@@ -67,18 +83,17 @@ void
 Model::reset_frog()
 {
     frog_.move_to(config.start.left_by(config.frog_dims.width / 2), config);
-    life_clock_.reset();
-    reset_clock_.reset();
-    reset_clock_.pause();
+    time_left_ = config.lifetime;
+    time_to_reset_ = config.reset_wait_time;
     frog_.alive = true;
 }
 
 void
 Model::move_frog(Model::Direction dir)
 {
-    if(hop_clock_.time() == 0) {
+    if(cool_down_ == 0) {
         frog_.move(dir, config);
-        hop_clock_.reset();
+        cool_down_ = config.hop_time;
     }
 }
 

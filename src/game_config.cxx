@@ -6,12 +6,12 @@ Game_config::Game_config()
           hop_dist(46, 45),
           start(346, 632),
           lifetime(60),
-          hop_time(7.0 / 60),
+          hop_time(7),
           car_dims(65, 20),
           row_velocities{-1, -3, -1, -2, -4},
           car_rows{4, 2, 4, 4, 3},
           kill_zone(0, 0, 692, 356),
-          reset_wait_time(45.0 / 60)
+          reset_wait_time(45)
 { }
 
 bool

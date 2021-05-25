@@ -28,10 +28,10 @@ struct Game_config{
     Position start;
 
     /// The time a frog has to reach a home
-    double lifetime;
+    unsigned int lifetime;
 
     /// The minimum time between frog hops
-    double hop_time;
+    unsigned int hop_time;
 
     /// Car dimensions
     Dimension car_dims;
@@ -40,7 +40,7 @@ struct Game_config{
     Rectangle kill_zone;
 
     /// Time the frog waits, dead, before resetting
-    double reset_wait_time;
+    unsigned int reset_wait_time;
 
     /// Velocities of objects for each given row
     std::vector<int> row_velocities;
@@ -48,8 +48,8 @@ struct Game_config{
     /// Number of cars in each row
     std::vector<int> car_rows;
 
-    /// Returns whether a position is a valid position on screen for the frog
-    /// to be in
+
+    /// Returns whether a position is a valid position on screen
     bool in_scene(Position const) const;
 
     /// Returns whether a rectangle fits on screen
