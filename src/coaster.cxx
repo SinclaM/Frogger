@@ -1,4 +1,4 @@
-#include "interactive_object.hxx"
+#include "coaster.hxx"
 
 coaster::coaster(const Game_config& config, object_type
 type, int row_num, Position start_pos)

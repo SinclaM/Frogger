@@ -8,7 +8,7 @@
 
 #include "frog.hxx"
 
-#include "interactive_object.hxx"
+#include "coaster.hxx"
 
 using namespace std;
 

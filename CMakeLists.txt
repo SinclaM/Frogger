@@ -11,7 +11,7 @@ set(MODEL_SRC
         src/model.cxx
         src/frog.cxx
         src/game_config.cxx
-        src/interactive_object.cxx)
+        src/coaster.cxx)
 
 # TODO: PUT ADDITIONAL NON-MODEL (UI) .cxx FILES IN THIS LIST:
 add_program(${GAME_EXE}
