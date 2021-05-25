@@ -24,25 +24,29 @@ struct Game_config{
     /// Amount frog moves per step in the x and y directions
     Dimension hop_dist;
 
-    /// Starting position for frog
+    /// Starting position for frog (top center)
     Position start;
 
     /// The time a frog has to reach a home
-    size_t lifetime;
+    unsigned int lifetime;
 
     /// The minimum time between frog hops
-    size_t hop_time;
+    unsigned int hop_time;
 
     /// Car dimensions
     Dimension car_dims;
+
+    /// The water kill_zone
+    Rectangle kill_zone;
+
+    /// Time the frog waits, dead, before resetting
+    unsigned int reset_wait_time;
 
     /// Velocities of objects for each given row
     std::vector<int> row_velocities;
 
     /// Number of cars in each row
     std::vector<int> car_rows;
-
-
 
 
     /// Returns whether a position is a valid position on screen

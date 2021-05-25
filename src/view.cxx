@@ -11,6 +11,7 @@ View::View(Model const& model)
           frog_right_sprite("frog_right.png"),
           frog_down_sprite("frog_down.png"),
           frog_left_sprite("frog_left.png"),
+          frog_dead_sprite("dead_frog.png"),
           background("background.png"),
           car_sprite(model.config.car_dims)
 { }
@@ -39,17 +40,22 @@ View::initial_window_title() const
 void
 View::draw_frog(ge211::Sprite_set& set)
 {
-    if(model_.frog().facing() == Direction{0, -1}){
-        set.add_sprite(frog_up_sprite, model_.frog().top_left(),
-                       frog_layer);
-    }else if(model_.frog().facing() == Direction{1, 0}){
-        set.add_sprite(frog_right_sprite, model_.frog().top_left(),
-                       frog_layer);
-    }else if(model_.frog().facing() == Direction{0, 1}){
-        set.add_sprite(frog_down_sprite, model_.frog().top_left(),
-                       frog_layer);
-    }else if(model_.frog().facing() == Direction{-1, 0}){
-        set.add_sprite(frog_left_sprite, model_.frog().top_left(),
+    if(model_.frog().alive){
+        if (model_.frog().facing() == Direction {0, -1}) {
+            set.add_sprite(frog_up_sprite, model_.frog().body().top_left(),
+                           frog_layer);
+        } else if (model_.frog().facing() == Direction {1, 0}) {
+            set.add_sprite(frog_right_sprite, model_.frog().body().top_left(),
+                           frog_layer);
+        } else if (model_.frog().facing() == Direction {0, 1}) {
+            set.add_sprite(frog_down_sprite, model_.frog().body().top_left(),
+                           frog_layer);
+        } else if (model_.frog().facing() == Direction {-1, 0}) {
+            set.add_sprite(frog_left_sprite, model_.frog().body().top_left(),
+                           frog_layer);
+        }
+    }else{
+        set.add_sprite(frog_dead_sprite, model_.frog().body().top_left(),
                        frog_layer);
     }
 }

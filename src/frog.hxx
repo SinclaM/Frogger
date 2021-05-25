@@ -21,6 +21,9 @@ public:
     using Position = ge211::Posn<int>;
     using Rectangle = ge211::Rect<int>;
 
+    /// If the frog is alive (able to move) or dead (awaiting to be reset)
+    bool alive;
+
     //
     // PUBLIC MEMBER FUNCTIONS
     //
@@ -38,14 +41,14 @@ public:
     /// frog is facing
     bool move_to(Position, Game_config const&);
 
-    /// Gets top left of frog's body
-    Position top_left() const;
-
     /// Gets frog's direction
     Direction facing() const;
 
     /// Gets frog's body
     Rectangle body() const;
+
+    /// Detects collision between body_ and a rectangle
+    bool hits(Rectangle const) const;
 
 private:
 
@@ -62,4 +65,3 @@ private:
     /// The direction the frog is facing
     Direction facing_;
 };
-

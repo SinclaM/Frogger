@@ -5,7 +5,6 @@
 #include "game_config.hxx"
 
 #include <iostream>
-
 /// Interactive objects within the game
 class coaster
 {
@@ -38,7 +37,7 @@ public:
     /// Moves the object in time by one unit
     void move(Game_config const&);
 
-    /// Returns the position of the interactive object
+    /// Returns the position of the coaster
     Position coaster_pos() const;
 
 private:

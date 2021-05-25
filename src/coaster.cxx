@@ -1,5 +1,6 @@
 #include "coaster.hxx"
 
+
 coaster::coaster(const Game_config& config, object_type
 type, int row_num, Position start_pos)
         : body_{start_pos.x, start_pos.y, config.car_dims.width,
@@ -12,7 +13,6 @@ type, int row_num, Position start_pos)
 
 void coaster::move_to(int x_pos, const Game_config& config)
 {
-
     if(config.in_object_scene({x_pos, body_.center().y}))
     {
         body_.x = x_pos;
@@ -25,8 +25,6 @@ void coaster::move_to(int x_pos, const Game_config& config)
             body_.x = 0;
         }
     }
-
-
 }
 
 void coaster::move(const Game_config& config)
