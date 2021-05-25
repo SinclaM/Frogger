@@ -44,6 +44,7 @@ private:
     Image const frog_right_sprite;
     Image const frog_down_sprite;
     Image const frog_left_sprite;
+    Image const frog_dead_sprite;
 
     /// Background
     Image const background;

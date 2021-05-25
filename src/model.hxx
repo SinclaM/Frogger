@@ -28,7 +28,13 @@ private:
     size_t time_left_;
 
     /// Cool-down so that the frog can't move so fast
-    size_t cool_down;
+    size_t cool_down_;
+
+    /// The water kill_zone, which is invisible--never drawn by the View
+    Rectangle kill_zone_;
+
+    /// The time the frog waits before resetting after dying
+    size_t time_to_reset_;
 
 public:
     /// The game config

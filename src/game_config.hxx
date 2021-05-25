@@ -24,14 +24,14 @@ struct Game_config{
     /// Amount frog moves per step in the x and y directions
     Dimension hop_dist;
 
-    /// Starting position for frog
+    /// Starting position for frog (top center)
     Position start;
 
     /// The time a frog has to reach a home
-    size_t lifetime;
+    unsigned int lifetime;
 
     /// The minimum time between frog hops
-    size_t hop_time;
+    unsigned int hop_time;
 
     /// Car dimensions
     Dimension car_dims;
@@ -41,6 +41,13 @@ struct Game_config{
 
     /// Number of cars in row 1
     int cars_row1;
+
+    /// The water kill_zone
+    Rectangle kill_zone;
+
+    /// Time the frog waits, dead, before resetting
+    unsigned int reset_wait_time;
+
 
 
 
