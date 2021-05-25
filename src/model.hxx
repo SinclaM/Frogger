@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iostream>
+
 #include <ge211.hxx>
 
 #include "game_config.hxx"
@@ -7,6 +9,8 @@
 #include "frog.hxx"
 
 #include "interactive_object.hxx"
+
+using namespace std;
 
 class Model
 {
@@ -30,6 +34,9 @@ private:
     /// Cool-down so that the frog can't move so fast
     size_t cool_down;
 
+    /// Vector of Vectors conataining the interactive objects in each row
+    vector<vector<Interactive_object>> interactive_;
+
 public:
     /// The game config
     Game_config const config;
@@ -48,4 +55,10 @@ public:
 
     /// Gets frog
     Frog frog() const;
+
+    /// Move the interactive objects for one frame
+    void move_interactive_objects(std::vector<std::vector<Interactive_object>>);
+
+    /// Gets the interactive objects
+    vector<vector<Interactive_object>> get_interactive() const;
 };

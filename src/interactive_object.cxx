@@ -31,3 +31,9 @@ void Interactive_object::move(const Game_config& config)
     move_to(body_.center().x + velocity_, config);
 }
 
+Interactive_object::Position
+Interactive_object::interactive_pos() const
+{
+    return body_.center();
+}
+

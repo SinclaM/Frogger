@@ -11,7 +11,8 @@ View::View(Model const& model)
           frog_right_sprite("frog_right.png"),
           frog_down_sprite("frog_down.png"),
           frog_left_sprite("frog_left.png"),
-          background("background.png")
+          background("background.png"),
+          car_sprite(model.config.car_dims)
 { }
 
 void
@@ -19,6 +20,7 @@ View::draw(ge211::Sprite_set& set)
 {
     // This needs to do something!
     set.add_sprite(background, ge211::the_origin, background_layer);
+    draw_car(set);
     draw_frog(set);
 }
 
@@ -51,3 +53,16 @@ View::draw_frog(ge211::Sprite_set& set)
                        frog_layer);
     }
 }
+
+void
+View::draw_car(ge211::Sprite_set& set)
+{
+    for (auto vec : model_.get_interactive())
+    {
+        for (auto obj : vec)
+        {
+            set.add_sprite(car_sprite, obj.interactive_pos(), entity_layer);
+        }
+    }
+}
+

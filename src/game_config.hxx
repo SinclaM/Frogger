@@ -39,8 +39,8 @@ struct Game_config{
     /// Velocities of objects for each given row
     std::vector<int> row_velocities;
 
-    /// Number of cars in row 1
-    int cars_row1;
+    /// Number of cars in each row
+    std::vector<int> car_rows;
 
 
 

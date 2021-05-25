@@ -9,7 +9,7 @@ Game_config::Game_config()
           hop_time(7),
           car_dims{75, 50},
           row_velocities{50, 50, 50},
-          cars_row1(5)
+          car_rows{5, 5, 5, 5, 5}
 { }
 
 bool

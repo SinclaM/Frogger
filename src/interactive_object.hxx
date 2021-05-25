@@ -7,6 +7,7 @@
 /// Interactive objects within the game
 class Interactive_object
 {
+public:
     //
     // TYPE ALIASES
     //
@@ -15,7 +16,7 @@ class Interactive_object
     /// It has not been made an enum class because using dims simplifies
     /// many operations
     using Direction = ge211::Dims<int>;
-    using Dimesion = ge211::Dims<int>;
+    using Dimension = ge211::Dims<int>;
     using Position = ge211::Posn<int>;
     using Rectangle = ge211::Rect<int>;
 
@@ -34,6 +35,9 @@ class Interactive_object
 
     /// Moves the object in time one frame
     void move(Game_config const&);
+
+    /// Returns the position of the interactive object
+    Position interactive_pos() const;
 
 private:
 

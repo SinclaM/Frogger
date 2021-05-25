@@ -34,6 +34,8 @@ private:
     /// Add the appropriate frog sprite
     void draw_frog(ge211::Sprite_set& set);
 
+    void draw_car(ge211::Sprite_set& set);
+
     //
     // PRIVATE DATA MEMBERS
     //
@@ -47,4 +49,7 @@ private:
 
     /// Background
     Image const background;
+
+    /// the car sprite ***** TO BE CHANGED
+    ge211::Rectangle_sprite const car_sprite;
 };
