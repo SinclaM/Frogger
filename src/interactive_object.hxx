@@ -7,7 +7,7 @@
 #include <iostream>
 
 /// Interactive objects within the game
-class Interactive_object
+class coaster
 {
 public:
     //
@@ -30,7 +30,7 @@ public:
             long_log, turtle, submerged_turtle, car};
 
     /// Default constructor
-    explicit Interactive_object(Game_config const&, object_type, int, Position);
+    explicit coaster(Game_config const&, object_type, int, Position);
 
     /// Moves the object to the desired x value
     void move_to(int x, Game_config const&);
@@ -39,7 +39,7 @@ public:
     void move(Game_config const&);
 
     /// Returns the position of the interactive object
-    Position interactive_pos() const;
+    Position coaster_pos() const;
 
 private:
 

@@ -40,7 +40,7 @@ private:
     int frame_counter;
 
     /// Vector of Vectors conataining the interactive objects in each row
-    vector<vector<Interactive_object>> interactive_;
+    vector<vector<coaster>> coaster_;
 
 
 
@@ -64,9 +64,9 @@ public:
     Frog frog() const;
 
     /// Move the interactive objects every four frames
-    void move_interactive_objects(
-            std::vector<std::vector<Interactive_object>>&);
+    void move_coasters(
+            std::vector<std::vector<coaster>>&);
 
     /// Gets the interactive objects
-    vector<vector<Interactive_object>> get_interactive() const;
+    vector<vector<coaster>> get_coaster() const;
 };

@@ -8,7 +8,7 @@ Model::Model(Game_config const& config)
           config(config)
 
 {
-    vector<Interactive_object> vec0;
+    vector<coaster> vec0;
     int row_num = 0;
 
     //learned how to use rand from https://www.cplusplus
@@ -19,8 +19,8 @@ Model::Model(Game_config const& config)
     {
         for (int ct = 0; ct < config.car_rows.at(row); ct++) {
             rand_num = rand() % 100;
-            vec0.push_back(Interactive_object(config,
-                       Interactive_object::object_type::car,
+            vec0.push_back(coaster(config,
+                       coaster::object_type::car,
                        row_num, {(config.scene_dims.width - config.car_dims
                        .width) * ct / 4 +
                        rand_num,
@@ -29,7 +29,7 @@ Model::Model(Game_config const& config)
 
 
         }
-        interactive_.push_back(vec0);
+        coaster_.push_back(vec0);
         vec0 = {};
         row_num++;
     }
@@ -51,7 +51,7 @@ Model::on_frame(double dt)
     // TODO: Simulation of cars, turtles, logs, etc. moving
 
 
-    move_interactive_objects(interactive_);
+    move_coasters(coaster_);
 
 
     if (frame_counter == 100)
@@ -85,7 +85,7 @@ Model::frog() const
 }
 
 void
-Model::move_interactive_objects(std::vector<std::vector<Interactive_object>> &
+Model::move_coasters(std::vector<std::vector<coaster>> &
 interactive_vec)
 {
     if (frame_counter%4 == 0) {
@@ -100,10 +100,10 @@ interactive_vec)
 
 }
 
-vector<vector<Interactive_object>>
-Model::get_interactive() const
+vector<vector<coaster>>
+Model::get_coaster() const
 {
-    return interactive_;
+    return coaster_;
 }
 
 
