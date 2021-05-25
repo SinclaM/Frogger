@@ -12,7 +12,7 @@ Frog::Frog(Game_config const& config)
 void
 Frog::move(Frog::Direction dir, Game_config const& config)
 {
-    if(alive) {
+    if(alive){
         if (move_to(body_.top_left() + dir * hop_dist_,
                     config)) {
             facing_ = dir;

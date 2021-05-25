@@ -10,6 +10,8 @@
 
 #include "coaster.hxx"
 
+#include "clock.hxx"
+
 using namespace std;
 
 class Model
@@ -29,17 +31,17 @@ private:
     /// The frog
     Frog frog_;
 
-    /// The time left on the timer
-    unsigned int time_left_;
+    /// The clock tracking the time the frog has left to reach a home
+    Clock life_clock_;
 
-    /// Cool-down so that the frog can't move so fast
-    unsigned int cool_down_;
+    /// Clock which imposes a cool down on frog movement
+    Clock hop_clock_;
 
     /// The water kill_zone, which is invisible--never drawn by the View
     Rectangle kill_zone_;
 
     /// The time the frog waits before resetting after dying
-    unsigned int time_to_reset_;
+    Clock reset_clock_;
 
     /// Vector of Vectors containing the interactive objects in each row
     coaster_matrix coasters_;
