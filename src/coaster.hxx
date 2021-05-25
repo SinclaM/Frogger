@@ -4,6 +4,7 @@
 
 #include "game_config.hxx"
 
+#include <iostream>
 /// Interactive objects within the game
 class coaster
 {
@@ -20,24 +21,24 @@ public:
     using Position = ge211::Posn<int>;
     using Rectangle = ge211::Rect<int>;
 
-    enum type {lilypad, occupied_lilypad, short_log, medium_log,
-        long_log, turtle, submerged_turtle, car};
-
     //
     // PUBLIC MEMBER FUNCTIONS
     //
 
+    enum object_type {lilypad, occupied_lilypad, short_log, medium_log,
+            long_log, turtle, submerged_turtle, car};
+
     /// Default constructor
-    explicit coaster(Game_config const&, type, int, Position);
+    explicit coaster(Game_config const&, object_type, int, Position);
 
     /// Moves the object to the desired x value
     void move_to(int x, Game_config const&);
 
-    /// Moves the object in time one frame
+    /// Moves the object in time by one unit
     void move(Game_config const&);
 
-    /// Returns the position of the interactive object
-    Position interactive_pos() const;
+    /// Returns the position of the coaster
+    Position coaster_pos() const;
 
 private:
 
@@ -45,7 +46,7 @@ private:
     Rectangle body_;
 
     /// Object Type
-    type type_;
+    object_type type_;
 
     /// Specifies which row the object is int
     int row_;

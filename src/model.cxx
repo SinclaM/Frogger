@@ -5,18 +5,44 @@ Model::Model(Game_config const& config)
         : frog_(config),
           time_left_(config.lifetime),
           cool_down_(config.hop_time),
+          frame_counter(0),
           kill_zone_(config.kill_zone),
           time_to_reset_(config.reset_wait_time),
           config(config)
-{
 
+{
+    vector<coaster> vec0;
+    int row_num = 0;
+
+    //learned how to use rand from https://www.cplusplus
+    // .com/reference/cstdlib/rand/
+    srand(time(NULL));
+    int rand_num;
+    for(size_t row = 0; row < config.car_rows.size(); row++)
+    {
+        for (int ct = 0; ct < config.car_rows.at(row); ct++) {
+            rand_num = rand() % 100;
+            vec0.push_back(coaster(config,
+                       coaster::object_type::car,
+                       row_num, {(config.scene_dims.width - config.car_dims
+                       .width) * ct / 4 +
+                       rand_num,
+                             config.scene_dims.height - (3 + row_num) * 45 +
+                             config.hop_dist.height/4}));
+
+
+        }
+        coaster_.push_back(vec0);
+        vec0 = {};
+        row_num++;
+    }
 }
 
 void
 Model::on_frame(double dt)
 {
-    // update cool_down if, necessary
-    if(cool_down_ > 0){
+    frame_counter++;
+    if(cool_down > 0){
         // Have to make sure subtracted dt will not make cool_down less
         // than zero
         if(cool_down_ > dt){
@@ -44,7 +70,13 @@ Model::on_frame(double dt)
     }
 
     // TODO: Simulation of cars, turtles, logs, etc. moving
-    move_coasters();
+    move_coasters(coaster_);
+
+
+    if (frame_counter == 100)
+    {
+        frame_counter = 0;
+    }
 }
 
 void
@@ -72,19 +104,22 @@ Model::frog() const
 }
 
 void
-Model::move_coasters()
+Model::move_coasters(std::vector<std::vector<coaster>> &
+interactive_vec)
 {
-    for (auto& vec : coasters_)
-    {
-        for (auto& obj : vec)
-        {
-            obj.move(config);
+    if (frame_counter%4 == 0) {
+        for (auto& vec : interactive_vec) {
+            for (auto& obj : vec) {
+                obj.move(config);
+
+            }
         }
     }
+
 }
 
-Model::coaster_matrix
-Model::get_coasters() const
+vector<vector<coaster>>
+Model::get_coaster() const
 {
-    return coasters_;
+    return coaster_;
 }
