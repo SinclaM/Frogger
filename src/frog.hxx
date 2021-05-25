@@ -65,4 +65,3 @@ private:
     /// The direction the frog is facing
     Direction facing_;
 };
-

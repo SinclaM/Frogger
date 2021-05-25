@@ -24,7 +24,7 @@ struct Game_config{
     /// Amount frog moves per step in the x and y directions
     Dimension hop_dist;
 
-    /// Starting position for frog
+    /// Starting position for frog (top center)
     Position start;
 
     /// The time a frog has to reach a home
@@ -47,6 +47,13 @@ struct Game_config{
 
     /// Number of cars in each row
     std::vector<int> car_rows;
+
+    /// The water kill_zone
+    Rectangle kill_zone;
+
+    /// Time the frog waits, dead, before resetting
+    unsigned int reset_wait_time;
+
 
 
 

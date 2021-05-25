@@ -1,4 +1,5 @@
 #include "model.hxx"
+#include <iostream>
 
 Model::Model(Game_config const& config)
         : frog_(config),
@@ -14,6 +15,7 @@ Model::Model(Game_config const& config)
 void
 Model::on_frame(double dt)
 {
+    // update cool_down if, necessary
     if(cool_down_ > 0){
         // Have to make sure subtracted dt will not make cool_down less
         // than zero
@@ -86,8 +88,3 @@ Model::get_coasters() const
 {
     return coasters_;
 }
-
-
-
-
-
