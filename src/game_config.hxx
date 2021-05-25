@@ -48,15 +48,6 @@ struct Game_config{
     /// Number of cars in each row
     std::vector<int> car_rows;
 
-    /// The water kill_zone
-    Rectangle kill_zone;
-
-    /// Time the frog waits, dead, before resetting
-    unsigned int reset_wait_time;
-
-
-
-
 
     /// Returns whether a position is a valid position on screen
     bool in_scene(Position const) const;
