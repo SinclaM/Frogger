@@ -4,6 +4,8 @@
 
 #include "game_config.hxx"
 
+#include <iostream>
+
 /// Interactive objects within the game
 class Interactive_object
 {
@@ -33,7 +35,7 @@ public:
     /// Moves the object to the desired x value
     void move_to(int x, Game_config const&);
 
-    /// Moves the object in time one frame
+    /// Moves the object in time by one unit
     void move(Game_config const&);
 
     /// Returns the position of the interactive object

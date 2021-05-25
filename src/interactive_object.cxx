@@ -12,9 +12,10 @@ type, int row_num, Position start_pos)
 
 void Interactive_object::move_to(int x_pos, const Game_config& config)
 {
-    if(config.in_scene({x_pos, body_.center().y}))
+
+    if(config.in_object_scene({x_pos, body_.center().y}))
     {
-        body_.x = x_pos + body_.width / 2;
+        body_.x = x_pos;
     }
     else
     {
@@ -24,16 +25,18 @@ void Interactive_object::move_to(int x_pos, const Game_config& config)
             body_.x = 0;
         }
     }
+
+
 }
 
 void Interactive_object::move(const Game_config& config)
 {
-    move_to(body_.center().x + velocity_, config);
+    move_to(body_.x + velocity_, config);
 }
 
 Interactive_object::Position
 Interactive_object::interactive_pos() const
 {
-    return body_.center();
+    return {body_.x, body_.y};
 }
 

@@ -34,8 +34,15 @@ private:
     /// Cool-down so that the frog can't move so fast
     size_t cool_down;
 
+    /// An integer used to determine whether the frame is even or odd, used
+    /// to make objects move at speeds less than 1 pixel per frame. Iterates
+    // to 100 then resets
+    int frame_counter;
+
     /// Vector of Vectors conataining the interactive objects in each row
     vector<vector<Interactive_object>> interactive_;
+
+
 
 public:
     /// The game config
@@ -56,8 +63,9 @@ public:
     /// Gets frog
     Frog frog() const;
 
-    /// Move the interactive objects for one frame
-    void move_interactive_objects(std::vector<std::vector<Interactive_object>>);
+    /// Move the interactive objects every four frames
+    void move_interactive_objects(
+            std::vector<std::vector<Interactive_object>>&);
 
     /// Gets the interactive objects
     vector<vector<Interactive_object>> get_interactive() const;

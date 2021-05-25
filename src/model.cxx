@@ -4,35 +4,41 @@ Model::Model(Game_config const& config)
         : frog_(config),
           time_left_(config.lifetime),
           cool_down(config.hop_time),
+          frame_counter(0),
           config(config)
+
 {
     vector<Interactive_object> vec0;
     int row_num = 0;
-    int ct_num = 0;
+
+    //learned how to use rand from https://www.cplusplus
+    // .com/reference/cstdlib/rand/
+    srand(time(NULL));
+    int rand_num;
     for(size_t row = 0; row < config.car_rows.size(); row++)
     {
-        std::cout << "entered first loop" << endl;
-        for (size_t ct = 0; ct_num < config.car_rows.at(row); ct++) {
-            std::cout << "entered second loop" << endl;
+        for (int ct = 0; ct < config.car_rows.at(row); ct++) {
+            rand_num = rand() % 100;
             vec0.push_back(Interactive_object(config,
                        Interactive_object::object_type::car,
-                       row_num, {(config.car_dims.width + 10) * ct_num,
-                             config.scene_dims.height - (1 + row_num) * 45}));
-            ct_num++;
+                       row_num, {(config.scene_dims.width - config.car_dims
+                       .width) * ct / 4 +
+                       rand_num,
+                             config.scene_dims.height - (3 + row_num) * 45 +
+                             config.hop_dist.height/4}));
+
 
         }
         interactive_.push_back(vec0);
-        vec0.clear();
+        vec0 = {};
         row_num++;
-        ct_num = 0;
     }
-    std::cout << "exited both loops" << endl;
-
 }
 
 void
 Model::on_frame(double dt)
 {
+    frame_counter++;
     if(cool_down > 0){
         // Have to make sure subtracted dt will not make cool_down less
         // than zero
@@ -43,7 +49,15 @@ Model::on_frame(double dt)
         }
     }
     // TODO: Simulation of cars, turtles, logs, etc. moving
+
+
     move_interactive_objects(interactive_);
+
+
+    if (frame_counter == 100)
+    {
+        frame_counter = 0;
+    }
 }
 
 void
@@ -71,16 +85,19 @@ Model::frog() const
 }
 
 void
-Model::move_interactive_objects(std::vector<std::vector<Interactive_object>>
+Model::move_interactive_objects(std::vector<std::vector<Interactive_object>> &
 interactive_vec)
 {
-    for (auto vec : interactive_vec)
-    {
-        for (auto obj : vec)
-        {
-            obj.move(config);
+    if (frame_counter%4 == 0) {
+        for (auto& vec : interactive_vec) {
+            for (auto& obj : vec) {
+                obj.move(config);
+
+            }
+
         }
     }
+
 }
 
 vector<vector<Interactive_object>>
