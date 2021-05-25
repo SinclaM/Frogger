@@ -1,10 +1,10 @@
 #include "game_config.hxx"
 
 Game_config::Game_config()
-        : scene_dims{1000, 1000},
-          frog_dims{50, 50},
-          hop_dist(50),
-          start{500, 900},
+        : scene_dims{692, 720},
+          frog_dims{42, 42},
+          hop_dist{46, 45},
+          start{346, 632},
           lifetime(60),
           hop_time(7),
           car_dims{75, 50},

@@ -14,6 +14,7 @@ public:
     using Dimensions = ge211::Dims<int>;
     using Position = ge211::Posn<int>;
     using Rectangle = ge211::Rect<int>;
+    using Image = ge211::Image_sprite;
 
     explicit View(Model const& model);
 
@@ -39,8 +40,11 @@ private:
     Model const& model_;
 
     /// The sprites for the frog
-    ge211::Image_sprite const frog_up_sprite;
-    ge211::Image_sprite const frog_right_sprite;
-    ge211::Image_sprite const frog_down_sprite;
-    ge211::Image_sprite const frog_left_sprite;
+    Image const frog_up_sprite;
+    Image const frog_right_sprite;
+    Image const frog_down_sprite;
+    Image const frog_left_sprite;
+
+    /// Background
+    Image const background;
 };
