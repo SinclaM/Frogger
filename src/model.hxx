@@ -30,10 +30,16 @@ private:
     Frog frog_;
 
     /// The time left on the timer
-    size_t time_left_;
+    unsigned int time_left_;
 
     /// Cool-down so that the frog can't move so fast
-    size_t cool_down_;
+    unsigned int cool_down_;
+
+    /// The water kill_zone, which is invisible--never drawn by the View
+    Rectangle kill_zone_;
+
+    /// The time the frog waits before resetting after dying
+    unsigned int time_to_reset_;
 
     /// Vector of Vectors containing the interactive objects in each row
     coaster_matrix coasters_;
