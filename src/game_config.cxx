@@ -1,15 +1,17 @@
 #include "game_config.hxx"
 
 Game_config::Game_config()
-        : scene_dims{692, 720},
-          frog_dims{42, 42},
+        : scene_dims(692, 720),
+          frog_dims(42, 42),
           hop_dist{46, 45},
-          start{346, 632},
+          start(346, 632),
           lifetime(60),
           hop_time(7),
           car_dims{75, 50},
           row_velocities{50, 50, 50},
-          cars_row1(5)
+          cars_row1(5),
+          kill_zone(0, 0, 692, 356),
+          reset_wait_time(45)
 { }
 
 bool
