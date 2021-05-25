@@ -57,7 +57,7 @@ View::draw_frog(ge211::Sprite_set& set)
 void
 View::draw_car(ge211::Sprite_set& set)
 {
-    for (auto vec : model_.get_interactive())
+    for (auto vec : model_.get_coasters())
     {
         for (auto obj : vec)
         {

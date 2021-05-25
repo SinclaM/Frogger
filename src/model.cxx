@@ -3,47 +3,26 @@
 Model::Model(Game_config const& config)
         : frog_(config),
           time_left_(config.lifetime),
-          cool_down(config.hop_time),
+          cool_down_(config.hop_time),
           config(config)
 {
-    vector<Interactive_object> vec0;
-    int row_num = 0;
-    int ct_num = 0;
-    for(size_t row = 0; row < config.car_rows.size(); row++)
-    {
-        std::cout << "entered first loop" << endl;
-        for (size_t ct = 0; ct_num < config.car_rows.at(row); ct++) {
-            std::cout << "entered second loop" << endl;
-            vec0.push_back(Interactive_object(config,
-                       Interactive_object::object_type::car,
-                       row_num, {(config.car_dims.width + 10) * ct_num,
-                             config.scene_dims.height - (1 + row_num) * 45}));
-            ct_num++;
-
-        }
-        interactive_.push_back(vec0);
-        vec0.clear();
-        row_num++;
-        ct_num = 0;
-    }
-    std::cout << "exited both loops" << endl;
 
 }
 
 void
 Model::on_frame(double dt)
 {
-    if(cool_down > 0){
+    if(cool_down_ > 0){
         // Have to make sure subtracted dt will not make cool_down less
         // than zero
-        if(cool_down > dt){
-            cool_down -= dt;
+        if(cool_down_ > dt){
+            cool_down_ -= dt;
         }else{
-            cool_down = 0;
+            cool_down_ = 0;
         }
     }
     // TODO: Simulation of cars, turtles, logs, etc. moving
-    move_interactive_objects(interactive_);
+    move_coasters();
 }
 
 void
@@ -58,9 +37,9 @@ Model::reset_frog()
 void
 Model::move_frog(Model::Direction dir)
 {
-    if(cool_down == 0) {
+    if(cool_down_ == 0) {
         frog_.move(dir, config);
-        cool_down = config.hop_time;
+        cool_down_ = config.hop_time;
     }
 }
 
@@ -71,22 +50,21 @@ Model::frog() const
 }
 
 void
-Model::move_interactive_objects(std::vector<std::vector<Interactive_object>>
-interactive_vec)
+Model::move_coasters()
 {
-    for (auto vec : interactive_vec)
+    for (auto& vec : coasters_)
     {
-        for (auto obj : vec)
+        for (auto& obj : vec)
         {
             obj.move(config);
         }
     }
 }
 
-vector<vector<Interactive_object>>
-Model::get_interactive() const
+Model::coaster_matrix
+Model::get_coasters() const
 {
-    return interactive_;
+    return coasters_;
 }
 
 

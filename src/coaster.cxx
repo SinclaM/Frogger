@@ -1,6 +1,6 @@
-#include "interactive_object.hxx"
+#include "coaster.hxx"
 
-Interactive_object::Interactive_object(const Game_config& config, object_type
+coaster::coaster(const Game_config& config, type
 type, int row_num, Position start_pos)
         : body_{start_pos.x, start_pos.y, config.car_dims.width,
                 config.car_dims.height},
@@ -10,7 +10,7 @@ type, int row_num, Position start_pos)
           hostile_(type > turtle)
 { }
 
-void Interactive_object::move_to(int x_pos, const Game_config& config)
+void coaster::move_to(int x_pos, const Game_config& config)
 {
     if(config.in_scene({x_pos, body_.center().y}))
     {
@@ -26,13 +26,13 @@ void Interactive_object::move_to(int x_pos, const Game_config& config)
     }
 }
 
-void Interactive_object::move(const Game_config& config)
+void coaster::move(const Game_config& config)
 {
     move_to(body_.center().x + velocity_, config);
 }
 
-Interactive_object::Position
-Interactive_object::interactive_pos() const
+coaster::Position
+coaster::interactive_pos() const
 {
     return body_.center();
 }
