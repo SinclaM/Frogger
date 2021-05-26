@@ -2,7 +2,7 @@
 
 static int background_layer = 0; // background scenery
 static int surface_layer = 1; // water, scoring, timer, life count
-static int entity_layer = 2; // cars, turtles, logs
+static int coaster_layer = 2; // cars, turtles, logs
 static int frog_layer = 3; // frog
 
 View::View(Model const& model)
@@ -63,11 +63,9 @@ View::draw_frog(ge211::Sprite_set& set)
 void
 View::draw_car(ge211::Sprite_set& set)
 {
-    for (auto vec : model_.get_coaster())
-    {
-        for (auto obj : vec)
-        {
-            set.add_sprite(car_sprite, obj.coaster_pos(), entity_layer);
+    for (auto vec : model_.get_coasters()){
+        for (auto obj : vec){
+            set.add_sprite(car_sprite, obj.coaster_pos(), coaster_layer);
         }
     }
 }

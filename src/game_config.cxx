@@ -8,7 +8,7 @@ Game_config::Game_config()
           lifetime(60),
           hop_time(7.0 / 60),
           car_dims(65, 20),
-          row_velocities{-1, -3, -1, -2, -4},
+          row_velocities{-60, 60, 60, -60, -60},
           car_rows{4, 2, 4, 4, 3},
           kill_zone(0, 0, 692, 356),
           reset_wait_time(45.0 / 60)
@@ -29,13 +29,13 @@ Game_config::in_scene(Game_config::Rectangle const rect) const
 }
 
 int
-Game_config::row_velocity(const int row) const
+Game_config::row_velocity(int const row) const
 {
     return row_velocities.at(row);
 }
 
 bool
-Game_config::in_object_scene(const Position pos) const
+Game_config::in_object_scene(Position const pos) const
 {
     return pos.x >= -150 && pos.x - 300 <= scene_dims.width &&
            pos.y >= 0 && pos.y <= scene_dims.height;

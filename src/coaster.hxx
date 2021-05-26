@@ -21,24 +21,30 @@ public:
     using Position = ge211::Posn<int>;
     using Rectangle = ge211::Rect<int>;
 
+    enum object_type {lilypad, occupied_lilypad, short_log, medium_log,
+        long_log, turtle, submerged_turtle, car};
+
     //
     // PUBLIC MEMBER FUNCTIONS
     //
 
-    enum object_type {lilypad, occupied_lilypad, short_log, medium_log,
-            long_log, turtle, submerged_turtle, car};
-
     /// Default constructor
-    explicit coaster(Game_config const&, object_type, int, Position);
+    explicit coaster(Game_config const&, object_type, int row_num, Position);
 
     /// Moves the object to the desired x value
     void move_to(int x, Game_config const&);
 
     /// Moves the object in time by one unit
-    void move(Game_config const&);
+    void move(double const dt, Game_config const&);
 
     /// Returns the position of the coaster
     Position coaster_pos() const;
+
+    /// Gets the body rectangle
+    Rectangle body() const;
+
+    /// Gets hostility
+    bool is_hostile() const;
 
 private:
 
@@ -48,7 +54,7 @@ private:
     /// Object Type
     object_type type_;
 
-    /// Specifies which row the object is int
+    /// Specifies which row the object is in
     int row_;
 
     /// The direction and speed of movement per second;
