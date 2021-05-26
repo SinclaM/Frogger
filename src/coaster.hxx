@@ -51,6 +51,9 @@ private:
     /// The objects hit box
     Rectangle body_;
 
+    /// The real floating point number associated with its horizontal position
+    double x_;
+
     /// Object Type
     object_type type_;
 
