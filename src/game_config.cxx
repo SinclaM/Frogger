@@ -8,7 +8,7 @@ Game_config::Game_config()
           lifetime(60),
           hop_time(7.0 / 60),
           car_dims(65, 20),
-          row_velocities{-60, 60, 60, -60, -60},
+          row_velocities{-10, 10, 10, -10, -10},
           car_rows{4, 2, 4, 4, 3},
           kill_zone(0, 0, 692, 356),
           reset_wait_time(45.0 / 60)

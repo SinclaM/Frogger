@@ -1,9 +1,12 @@
 #include "coaster.hxx"
 
+#include <iostream>
+
 coaster::coaster(const Game_config& config, object_type
 type, int row_num, Position start_pos)
         : body_{start_pos.x, start_pos.y, config.car_dims.width,
                 config.car_dims.height},
+          x_(start_pos.x),
           type_(type),
           row_(row_num),
           velocity_(config.row_velocity(row_num)),
@@ -26,7 +29,9 @@ void coaster::move_to(int x_pos, const Game_config& config)
 
 void coaster::move(double const dt, const Game_config& config)
 {
-    move_to(body_.x + dt * velocity_, config);
+    x_ += dt * velocity_;
+    body_.x = x_;
+    move_to(x_, config);
 }
 
 coaster::Position
