@@ -12,8 +12,6 @@
 
 #include "clock.hxx"
 
-using namespace std;
-
 class Model
 {
 public:
@@ -37,19 +35,14 @@ private:
     /// Clock which imposes a cool down on frog movement
     Clock hop_clock_;
 
-    /// An integer used to determine whether the frame is even or odd, used
-    /// to make objects move at speeds less than 1 pixel per frame. Iterates
-    // to 100 then resets
-    int frame_counter;
-  
     /// The water kill_zone, which is invisible--never drawn by the View
     Rectangle kill_zone_;
 
     /// The time the frog waits before resetting after dying
     Clock reset_clock_;
 
-    /// Vector of Vectors conataining the interactive objects in each row
-    vector<vector<coaster>> coaster_;
+    /// Vector of Vectors containing the interactive objects in each row
+    coaster_matrix coasters_;
 
 public:
     /// The game config
@@ -70,10 +63,9 @@ public:
     /// Gets frog
     Frog frog() const;
 
-    /// Move the interactive objects every four frames
-    void move_coasters(
-            std::vector<std::vector<coaster>>&);
+    /// Move the coasters every four frames
+    void move_coasters(double const dt, coaster_matrix&);
 
     /// Gets the interactive objects
-    vector<vector<coaster>> get_coaster() const;
+    coaster_matrix get_coasters() const;
 };
