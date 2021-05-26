@@ -22,7 +22,8 @@ public:
     using Rectangle = ge211::Rect<int>;
 
     enum object_type {lilypad, occupied_lilypad, short_log, medium_log,
-        long_log, turtle, submerged_turtle, car};
+        long_log, passive_turtle, turtle, submerging_turtle, submerged_turtle,
+        car};
 
     //
     // PUBLIC MEMBER FUNCTIONS
@@ -46,6 +47,15 @@ public:
     /// Gets hostility
     bool is_hostile() const;
 
+    /// Returns the coaster type
+    object_type& coaster_type();
+
+    /// submerges the turtle
+    void submerge_turtle();
+
+    /// Returns the row that the coaster is in
+    int get_row();
+
 private:
 
     /// The objects hit box
@@ -65,4 +75,6 @@ private:
 
     /// Determines if the interactive object has the ability to kill
     bool hostile_;
+
+
 };
