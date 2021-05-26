@@ -45,8 +45,32 @@ struct Game_config{
     /// Velocities of objects for each given row
     std::vector<int> row_velocities;
 
-    /// Number of cars in each row
-    std::vector<int> car_rows;
+    /// Number of coasters in each row
+    std::vector<int> coaster_rows;
+
+    /// Dimensions of short log
+    Dimension short_log_dims;
+
+    ///Dimensions of medium log
+    Dimension medium_log_dims;
+
+    /// Dimensions of long log
+    Dimension long_log_dims;
+
+    /// Dimensions of for three turtles
+    Dimension three_turtle_dims;
+
+    /// Time for turtle submersion
+    double turtle_sumberged_time;
+
+    /// Time unitl turtle begins submering
+    double turtle_submerging_time;
+
+    /// Time turtles are submerged for
+    double turtle_sumbersed_for;
+
+    /// Dimensions for two turtles
+    Dimension two_turtle_dims;
 
     /// Returns whether a position is a valid position on screen for the frog
     /// to be in

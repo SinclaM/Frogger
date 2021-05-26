@@ -10,7 +10,7 @@ type, int row_num, Position start_pos)
           type_(type),
           row_(row_num),
           velocity_(config.row_velocity(row_num)),
-          hostile_(type > turtle)
+          hostile_(type > passive_turtle)
 { }
 
 void coaster::move_to(int x_pos, const Game_config& config)
@@ -21,8 +21,10 @@ void coaster::move_to(int x_pos, const Game_config& config)
     else{
         if(velocity_ < 0){
             body_.x = config.scene_dims.width - body_.width;
+            x_ = body_.x;
         }else if(velocity_ > 0){
             body_.x = 0;
+            x_ = body_.x;
         }
     }
 }
@@ -50,4 +52,33 @@ bool
 coaster::is_hostile() const
 {
     return hostile_;
+}
+
+coaster::object_type&
+coaster::coaster_type()
+{
+    return type_;
+}
+
+void
+coaster::submerge_turtle()
+{
+    if (type_ == coaster::submerged_turtle)
+    {
+        type_ = coaster::turtle;
+    }
+    else if (type_ == coaster::submerging_turtle)
+    {
+        type_ = coaster::submerged_turtle;
+    }
+    else if (type_ == coaster::turtle)
+    {
+        type_ = coaster::submerging_turtle;
+    }
+}
+
+int
+coaster::get_row()
+{
+    return row_;
 }
