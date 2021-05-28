@@ -45,6 +45,16 @@ private:
     /// Vector of Vectors containing the interactive objects in each row
     Coaster_matrix coasters_;
 
+    /// Clock determining when the turtle submerges
+    Clock turtle_timer;
+
+    /// Clock determining when the user sees the indicator that the turtle is
+    // submerging
+    Clock turtle_torpedo;
+
+    /// Clock determining how long the turtles are submeresed for
+    Clock turtles_submersed;
+
 public:
     /// The game config
     Game_config const config;
@@ -69,4 +79,11 @@ public:
 
     /// Gets the interactive objects
     Coaster_matrix get_coasters() const;
+
+    /// Initializes the a type of coaster and adds them to the model
+    // initializer
+    void initialize_coaster(std::vector<int> rows_to_initialize, coaster::object_type obj_type, Dimension type_dimensions);
+
+    /// submerges the turtles
+    void turtles_submerge(coaster_matrix&);
 };

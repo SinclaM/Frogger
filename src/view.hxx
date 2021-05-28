@@ -34,7 +34,7 @@ private:
     /// Add the appropriate frog sprite
     void draw_frog(ge211::Sprite_set& set);
 
-    void draw_car(ge211::Sprite_set& set);
+    void draw_coasters(ge211::Sprite_set& set);
 
     //
     // PRIVATE DATA MEMBERS
@@ -57,4 +57,16 @@ private:
     Image const pink_car_sprite;
     Image const racecar_2_sprite;
     Image const truck_sprite;
+  
+    /// the coaster sprites ***** TO BE CHANGED
+    ge211::Rectangle_sprite const car_sprite;
+    ge211::Rectangle_sprite const short_log_sprite;
+    ge211::Rectangle_sprite const medium_log_sprite;
+    ge211::Rectangle_sprite const long_log_sprite;
+    ge211::Rectangle_sprite const two_turtle_sprite;
+    ge211::Rectangle_sprite const two_turtle_submerging_sprite;
+    ge211::Rectangle_sprite const two_turtle_submerged_sprite;
+    ge211::Rectangle_sprite const three_turtle_sprite;
+    ge211::Rectangle_sprite const three_turtle_submerging_sprite;
+    ge211::Rectangle_sprite const three_turtle_submerged_sprite;
 };

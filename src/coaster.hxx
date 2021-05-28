@@ -21,8 +21,9 @@ public:
     using Position = ge211::Posn<int>;
     using Rectangle = ge211::Rect<int>;
 
-    enum object_type {short_log, medium_log, long_log, turtle,
-            submerged_turtle, racecar_1, tractor, pink_car, racecar};
+    enum object_type {lilypad, occupied_lilypad, short_log, medium_log,
+        long_log, passive_turtle, turtle, submerging_turtle, submerged_turtle,
+        car};
 
     //
     // PUBLIC MEMBER FUNCTIONS
@@ -48,6 +49,15 @@ public:
 
     /// Gets the row number
     int row() const;
+  
+    /// Returns the coaster type
+    object_type& coaster_type();
+
+    /// submerges the turtle
+    void submerge_turtle();
+
+    /// Returns the row that the coaster is in
+    int get_row();
 
 private:
 
@@ -72,4 +82,6 @@ private:
 
     /// Determines if the interactive object has the ability to kill
     bool hostile_;
+
+
 };
