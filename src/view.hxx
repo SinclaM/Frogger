@@ -51,6 +51,10 @@ private:
     /// Background
     Image const background;
 
-    /// the car sprite ***** TO BE CHANGED
-    ge211::Rectangle_sprite const car_sprite;
+    /// Sprites for the cars
+    Image const racecar_1_sprite;
+    Image const tractor_sprite;
+    Image const pink_car_sprite;
+    Image const racecar_2_sprite;
+    Image const truck_sprite;
 };

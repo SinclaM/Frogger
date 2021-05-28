@@ -13,7 +13,11 @@ View::View(Model const& model)
           frog_left_sprite("frog_left.png"),
           frog_dead_sprite("dead_frog.png"),
           background("background.png"),
-          car_sprite(model.config.car_dims)
+          racecar_1_sprite("racecar_1.png"),
+          tractor_sprite("tractor.png"),
+          pink_car_sprite("pink_car.png"),
+          racecar_2_sprite("racecar_2.png"),
+          truck_sprite("truck_sprite.png")
 { }
 
 void
@@ -64,8 +68,34 @@ void
 View::draw_car(ge211::Sprite_set& set)
 {
     for (auto vec : model_.get_coasters()){
-        for (auto obj : vec){
-            set.add_sprite(car_sprite, obj.coaster_pos(), coaster_layer);
+        for (auto coaster : vec){
+            switch (coaster.row()){
+            case 0:
+                set.add_sprite(racecar_1_sprite,
+                               coaster.coaster_pos(),
+                               coaster_layer);
+                break;
+            case 1:
+                set.add_sprite(tractor_sprite,
+                               coaster.coaster_pos(),
+                               coaster_layer);
+                break;
+            case 2:
+                set.add_sprite(pink_car_sprite,
+                               coaster.coaster_pos(),
+                               coaster_layer);
+                break;
+            case 3:
+                set.add_sprite(racecar_2_sprite,
+                               coaster.coaster_pos(),
+                               coaster_layer);
+                break;
+            case 4:
+                set.add_sprite(truck_sprite,
+                               coaster.coaster_pos(),
+                               coaster_layer);
+                break;
+            }
         }
     }
 }

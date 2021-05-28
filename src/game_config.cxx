@@ -7,11 +7,18 @@ Game_config::Game_config()
           start(346, 632),
           lifetime(60),
           hop_time(7.0 / 60),
-          car_dims(65, 20),
-          row_velocities{-10, 10, 10, -10, -10},
-          car_rows{4, 2, 4, 4, 3},
+          car_dims(64, 32),
+          row_velocities{-30, 30, -50, 70, -60},
+          car_rows{3, 3, 3, 1, 2},
           kill_zone(0, 0, 692, 356),
-          reset_wait_time(45.0 / 60)
+          reset_wait_time(45.0 / 60),
+          bottom_lane_y(595),
+          spacings{200, 200, 200, 200, 400},
+          random_deviation_range(10),
+          coaster_small(32, 32),
+          coaster_medium(64, 32),
+          coaster_long(96, 64),
+          coaster_longest(128, 64)
 { }
 
 bool

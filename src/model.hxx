@@ -23,7 +23,8 @@ public:
     using Direction = ge211::Dims<int>;
     using Position = ge211::Posn<int>;
     using Rectangle = ge211::Rect<int>;
-    using coaster_matrix = std::vector<std::vector<coaster>>;
+    using Dimension = ge211::Dims<int>;
+    using Coaster_matrix = std::vector<std::vector<Coaster>>;
 
 private:
     /// The frog
@@ -42,7 +43,7 @@ private:
     Clock reset_clock_;
 
     /// Vector of Vectors containing the interactive objects in each row
-    coaster_matrix coasters_;
+    Coaster_matrix coasters_;
 
 public:
     /// The game config
@@ -64,8 +65,8 @@ public:
     Frog frog() const;
 
     /// Move the coasters every four frames
-    void move_coasters(double const dt, coaster_matrix&);
+    void move_coasters(double const dt, Coaster_matrix&);
 
     /// Gets the interactive objects
-    coaster_matrix get_coasters() const;
+    Coaster_matrix get_coasters() const;
 };

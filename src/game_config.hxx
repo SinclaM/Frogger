@@ -48,6 +48,24 @@ struct Game_config{
     /// Number of cars in each row
     std::vector<int> car_rows;
 
+    /// Top of the first coaster lane
+    int bottom_lane_y;
+
+    /// Default spacing between coasters for every lane (before random
+    /// deviation)
+    std::vector<int> spacings;
+
+    /// Random deviation added to initial x position of cars, turtles, logs,
+    /// etc. The deviation is a random number between -random_deviation_range
+    /// and random_deviation_range
+    int random_deviation_range;
+
+    /// The dimensions of coasters
+    Dimension coaster_small;
+    Dimension coaster_medium;
+    Dimension coaster_long;
+    Dimension coaster_longest;
+
     /// Returns whether a position is a valid position on screen for the frog
     /// to be in
     bool in_scene(Position const) const;
