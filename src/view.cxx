@@ -22,7 +22,9 @@ View::View(Model const& model)
           medium_log_sprite("medium_log.png"),
           long_log_sprite("long_log.png"),
           two_turtles_sprite("two_turtles.png"),
-          three_turtles_sprite("three_turtles.png")
+          three_turtles_sprite("three_turtles.png"),
+          two_turtles_diving_sprite("two_turtles_diving.png"),
+          three_turtles_diving_sprite("three_turtles_diving.png")
 { }
 
 void
@@ -101,9 +103,16 @@ View::draw_coasters(ge211::Sprite_set& set)
                                coaster_layer);
                 break;
             case 6:
-                set.add_sprite(three_turtles_sprite,
-                               coaster.coaster_pos(),
-                               coaster_layer);
+                if(coaster.type() == Coaster::other ||
+                   coaster.type() ==Coaster::turtle){
+                    set.add_sprite(three_turtles_sprite,
+                                   coaster.coaster_pos(),
+                                   coaster_layer);
+                }else if(coaster.type() == Coaster::submerging_turtle){
+                    set.add_sprite(three_turtles_diving_sprite,
+                                   coaster.coaster_pos(),
+                                   coaster_layer);
+                }
                 break;
             case 7:
                 set.add_sprite(small_log_sprite,
@@ -116,9 +125,16 @@ View::draw_coasters(ge211::Sprite_set& set)
                                coaster_layer);
                 break;
             case 9:
-                set.add_sprite(two_turtles_sprite,
-                               coaster.coaster_pos(),
-                               coaster_layer);
+                if(coaster.type() == Coaster::other ||
+                   coaster.type() ==Coaster::turtle){
+                    set.add_sprite(two_turtles_sprite,
+                                   coaster.coaster_pos(),
+                                   coaster_layer);
+                }else if(coaster.type() == Coaster::submerging_turtle){
+                    set.add_sprite(two_turtles_diving_sprite,
+                                   coaster.coaster_pos(),
+                                   coaster_layer);
+                }
                 break;
             case 10:
                 set.add_sprite(medium_log_sprite,

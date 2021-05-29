@@ -66,4 +66,6 @@ private:
     /// Turtles
     Image const two_turtles_sprite;
     Image const three_turtles_sprite;
+    Image const two_turtles_diving_sprite;
+    Image const three_turtles_diving_sprite;
 };

@@ -24,7 +24,13 @@ Model::Model(Game_config const& config)
             int y_step = config.hop_dist.height + 1;
             Position pos(initial.next() + x_step * j + deviation.next(),
                          config.bottom_lane_y - y_step * i);
-            vec.push_back(Coaster(config, i, pos));
+            Coaster::object_type type;
+            if((i == 6 || i == 9) && j == 0){
+                type = Coaster::turtle;
+            }else{
+                type = Coaster::other;
+            }
+            vec.push_back(Coaster(config, i, type, pos));
         }
         coasters_.push_back(vec);
     }
@@ -33,6 +39,15 @@ Model::Model(Game_config const& config)
 void
 Model::on_frame(double dt)
 {
+    if (turtles_submersed.time() == 0)
+    {
+        turtles_submersed.reset();
+        turtle_torpedo.resume();
+        turtle_timer.resume();
+    }
+    turtle_torpedo.dec(dt);
+    turtle_timer.dec(dt);
+    turtles_submersed.dec(dt);
     hop_clock_.dec(dt);
     reset_clock_.dec(dt);
 
@@ -59,6 +74,21 @@ Model::on_frame(double dt)
     if(cstrp != nullptr && frog_.alive){
         auto coaster = *cstrp;
         frog_.move_with(coaster, dt, config);
+    }
+
+    // submerges the turtles
+    if (turtles_submersed.time() == 0){
+        turtles_submerge();
+    }
+    else if (turtle_timer.time() == 0){
+        turtles_submerge();
+        turtle_timer.reset();
+        turtle_timer.pause();
+    }
+    else if (turtle_torpedo.time() == 0){
+        turtles_submerge();
+        turtle_torpedo.reset();
+        turtle_torpedo.pause();
     }
 
     // reset the frog, if necessary
@@ -109,9 +139,13 @@ Model::get_coasters() const
 }
 
 void
-Model::turtles_submerge(Coaster_matrix& matrix)
+Model::turtles_submerge()
 {
-
+    for (auto& vec : coasters_){
+        for (auto& obj : vec){
+            obj.submerge_turtle();
+        }
+    }
 }
 
 const Coaster*

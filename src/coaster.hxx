@@ -21,11 +21,18 @@ public:
     using Position = ge211::Posn<int>;
     using Rectangle = ge211::Rect<int>;
 
+    enum object_type {turtle, passive_turtle, submerging_turtle,
+            submerged_turtle, other};
+
     //
     // PUBLIC MEMBER FUNCTIONS
     //
 
     /// Default constructor
+    explicit Coaster(Game_config const&, int row_num, object_type type,
+                     Position);
+
+    /// Constructor which takes no object_type argument
     explicit Coaster(Game_config const&, int row_num, Position);
 
     /// Moves the object to the desired x value
@@ -52,6 +59,9 @@ public:
     /// Gets the change in x position a coaster will move in time dt
     double dx(double const dt) const;
 
+    /// Returns the coaster type
+    object_type type();
+
 private:
 
     /// The objects hit box
@@ -59,6 +69,9 @@ private:
 
     /// The real floating point number associated with its horizontal position
     double x_;
+
+    /// Object Type
+    object_type type_;
 
     /// Specifies which row the object is in
     /// Rows are numbered bottom to top, starting from zero, and counting only

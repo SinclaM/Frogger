@@ -2,8 +2,10 @@
 
 #include <iostream>
 
-Coaster::Coaster(const Game_config& config, int row_num, Position start_pos)
+Coaster::Coaster(const Game_config& config, int row_num, object_type
+type, Position start_pos)
         : x_(start_pos.x),
+          type_(type),
           row_(row_num),
           velocity_(config.row_velocity(row_num)),
           hostile_(false)
@@ -27,6 +29,10 @@ Coaster::Coaster(const Game_config& config, int row_num, Position start_pos)
     }
     body_ = {start_pos.x, start_pos.y, body_dims.width, body_dims.height};
 }
+
+Coaster::Coaster(Game_config const& config, int row_num, Position pos)
+    : Coaster(config, row_num, other, pos)
+{ }
 
 void Coaster::move_to(int x_pos, const Game_config& config)
 {
@@ -72,7 +78,15 @@ Coaster::is_hostile() const
 void
 Coaster::submerge_turtle()
 {
-
+    if(type_ == Coaster::submerged_turtle){
+        type_ = Coaster::turtle;
+        hostile_ = false;
+    }else if (type_ == Coaster::submerging_turtle){
+        type_ = Coaster::submerged_turtle;
+        hostile_ = true;
+    }else if (type_ == Coaster::turtle){
+        type_ = Coaster::submerging_turtle;
+    }
 }
 
 int
@@ -86,3 +100,11 @@ Coaster::dx(double const dt) const
 {
     return dt * velocity_;
 }
+
+Coaster::object_type
+Coaster::type()
+{
+    return type_;
+}
+
+
