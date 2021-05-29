@@ -63,7 +63,7 @@ struct Game_config{
     /// Time for turtle submersion
     double turtle_sumberged_time;
 
-    /// Time unitl turtle begins submering
+    /// Time until turtle begins submerging
     double turtle_submerging_time;
 
     /// Time turtles are submerged for

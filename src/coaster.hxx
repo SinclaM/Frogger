@@ -21,16 +21,12 @@ public:
     using Position = ge211::Posn<int>;
     using Rectangle = ge211::Rect<int>;
 
-    enum object_type {lilypad, occupied_lilypad, short_log, medium_log,
-        long_log, passive_turtle, turtle, submerging_turtle, submerged_turtle,
-        car};
-
     //
     // PUBLIC MEMBER FUNCTIONS
     //
 
     /// Default constructor
-    explicit Coaster(Game_config const&, object_type, int row_num, Position);
+    explicit Coaster(Game_config const&, int row_num, Position);
 
     /// Moves the object to the desired x value
     void move_to(int x, Game_config const&);
@@ -49,15 +45,9 @@ public:
 
     /// Gets the row number
     int row() const;
-  
-    /// Returns the coaster type
-    object_type& coaster_type();
 
     /// submerges the turtle
     void submerge_turtle();
-
-    /// Returns the row that the coaster is in
-    int get_row();
 
 private:
 
@@ -66,9 +56,6 @@ private:
 
     /// The real floating point number associated with its horizontal position
     double x_;
-
-    /// Object Type
-    object_type type_;
 
     /// Specifies which row the object is in
     /// Rows are numbered bottom to top, starting from zero, and counting only
@@ -82,6 +69,4 @@ private:
 
     /// Determines if the interactive object has the ability to kill
     bool hostile_;
-
-
 };

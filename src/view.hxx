@@ -57,16 +57,13 @@ private:
     Image const pink_car_sprite;
     Image const racecar_2_sprite;
     Image const truck_sprite;
-  
-    /// the coaster sprites ***** TO BE CHANGED
-    ge211::Rectangle_sprite const car_sprite;
-    ge211::Rectangle_sprite const short_log_sprite;
-    ge211::Rectangle_sprite const medium_log_sprite;
-    ge211::Rectangle_sprite const long_log_sprite;
-    ge211::Rectangle_sprite const two_turtle_sprite;
-    ge211::Rectangle_sprite const two_turtle_submerging_sprite;
-    ge211::Rectangle_sprite const two_turtle_submerged_sprite;
-    ge211::Rectangle_sprite const three_turtle_sprite;
-    ge211::Rectangle_sprite const three_turtle_submerging_sprite;
-    ge211::Rectangle_sprite const three_turtle_submerged_sprite;
+
+    /// Logs
+    Image const small_log_sprite;
+    Image const medium_log_sprite;
+    Image const long_log_sprite;
+
+    /// Turtles
+    Image const two_turtles_sprite;
+    Image const three_turtles_sprite;
 };

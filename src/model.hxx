@@ -49,10 +49,10 @@ private:
     Clock turtle_timer;
 
     /// Clock determining when the user sees the indicator that the turtle is
-    // submerging
+    /// submerging
     Clock turtle_torpedo;
 
-    /// Clock determining how long the turtles are submeresed for
+    /// Clock determining how long the turtles are submersed for
     Clock turtles_submersed;
 
 public:
@@ -81,9 +81,10 @@ public:
     Coaster_matrix get_coasters() const;
 
     /// Initializes the a type of coaster and adds them to the model
-    // initializer
-    void initialize_coaster(std::vector<int> rows_to_initialize, coaster::object_type obj_type, Dimension type_dimensions);
+    /// initializer
+    void initialize_coaster(std::vector<int> rows_to_initialize,
+                            Dimension type_dimensions);
 
     /// submerges the turtles
-    void turtles_submerge(coaster_matrix&);
+    void turtles_submerge(Coaster_matrix&);
 };

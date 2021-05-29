@@ -17,21 +17,12 @@ View::View(Model const& model)
           tractor_sprite("tractor.png"),
           pink_car_sprite("pink_car.png"),
           racecar_2_sprite("racecar_2.png"),
-          truck_sprite("truck_sprite.png")
-          car_sprite(model.config.car_dims),
-          short_log_sprite(model.config.short_log_dims),
-          medium_log_sprite(model.config.medium_log_dims),
-          long_log_sprite(model.config.long_log_dims),
-          two_turtle_sprite(model.config.two_turtle_dims),
-          two_turtle_submerging_sprite(model.config.two_turtle_dims,
-                                   ge211::Color::medium_green()),
-          two_turtle_submerged_sprite(model.config.two_turtle_dims,
-                                  ge211::Color::black()),
-          three_turtle_sprite(model.config.three_turtle_dims),
-          three_turtle_submerging_sprite(model.config.three_turtle_dims,
-                                       ge211::Color::medium_green()),
-          three_turtle_submerged_sprite(model.config.three_turtle_dims,
-                                      ge211::Color::black())
+          truck_sprite("truck_sprite.png"),
+          small_log_sprite("small_log.png"),
+          medium_log_sprite("medium_log.png"),
+          long_log_sprite("long_log.png"),
+          two_turtles_sprite("two_turtles.png"),
+          three_turtles_sprite("three_turtles.png")
 { }
 
 void
@@ -81,10 +72,9 @@ View::draw_frog(ge211::Sprite_set& set)
 void
 View::draw_coasters(ge211::Sprite_set& set)
 {
-    for (auto vec : model_.get_coasters()){
-        /*
-        for (auto coaster : vec){
-            switch (coaster.row()){
+    for (auto vec : model_.get_coasters()) {
+        for (auto coaster : vec) {
+            switch (coaster.row()) {
             case 0:
                 set.add_sprite(racecar_1_sprite,
                                coaster.coaster_pos(),
@@ -110,71 +100,31 @@ View::draw_coasters(ge211::Sprite_set& set)
                                coaster.coaster_pos(),
                                coaster_layer);
                 break;
-          */
-
-        for (auto obj : vec){
-            if (obj.coaster_type() == coaster::object_type::car)
-            {
-                set.add_sprite(car_sprite, obj.coaster_pos(), coaster_layer);
-            }
-            else if (obj.coaster_type() == coaster::object_type::short_log)
-            {
-                set.add_sprite(short_log_sprite, obj.coaster_pos(),
+            case 6:
+                set.add_sprite(three_turtles_sprite,
+                               coaster.coaster_pos(),
                                coaster_layer);
-            }
-            else if (obj.coaster_type() == coaster::object_type::medium_log)
-            {
-                set.add_sprite(medium_log_sprite, obj.coaster_pos(),
+                break;
+            case 7:
+                set.add_sprite(small_log_sprite,
+                               coaster.coaster_pos(),
                                coaster_layer);
-            }
-            else if (obj.coaster_type() == coaster::object_type::long_log)
-            {
-                set.add_sprite(long_log_sprite, obj.coaster_pos(),
+                break;
+            case 8:
+                set.add_sprite(long_log_sprite,
+                               coaster.coaster_pos(),
                                coaster_layer);
-            }
-            else if (obj.coaster_type() == coaster::object_type::turtle ||
-            obj.coaster_type() == coaster::passive_turtle)
-            {
-                if (obj.get_row() == 6) {
-                    set.add_sprite(two_turtle_sprite, obj.coaster_pos(),
-                                   coaster_layer);
-                }
-                else
-                {
-                    set.add_sprite(three_turtle_sprite, obj.coaster_pos(),
-                                   coaster_layer);
-                }
-            }
-            else if (obj.coaster_type() == coaster::object_type::submerging_turtle)
-            {
-                if (obj.get_row() == 6) {
-                    set.add_sprite(two_turtle_submerging_sprite,
-                                   obj.coaster_pos(),
-                                   coaster_layer);
-                }
-                else
-                {
-                    set.add_sprite(three_turtle_submerging_sprite, obj
-                    .coaster_pos(), coaster_layer);
-                }
-            }
-            else if (obj.coaster_type() == coaster::object_type::submerged_turtle)
-            {
-                if (obj.get_row() == 6) {
-                    set.add_sprite(two_turtle_submerged_sprite,
-                                   obj.coaster_pos(),
-                                   coaster_layer);
-                }
-                else
-                {
-                    set.add_sprite(three_turtle_submerged_sprite, obj
-                            .coaster_pos(), coaster_layer);
-                }
-            }
-            else if (obj.coaster_type() == coaster::object_type::passive_turtle)
-            {
-                set.add_sprite(two_turtle_sprite, obj.coaster_pos(),
+                break;
+            case 9:
+                set.add_sprite(two_turtles_sprite,
+                               coaster.coaster_pos(),
                                coaster_layer);
+                break;
+            case 10:
+                set.add_sprite(medium_log_sprite,
+                               coaster.coaster_pos(),
+                               coaster_layer);
+                break;
             }
         }
     }

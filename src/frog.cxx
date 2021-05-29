@@ -1,6 +1,5 @@
 ﻿#include "frog.hxx"
 
-
 Frog::Frog(Game_config const& config)
         : body_(config.start.x - config.frog_dims.width / 2, config.start.y,
                 config.frog_dims.width, config.frog_dims.height),

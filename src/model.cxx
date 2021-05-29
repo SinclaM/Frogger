@@ -10,116 +10,31 @@ Model::Model(Game_config const& config)
           config(config),
           turtle_timer(config.turtle_sumberged_time, false),
           turtle_torpedo(config.turtle_submerging_time, false),
-          turtles_submersed(config.turtle_sumbersed_for + config
-          .turtle_sumberged_time, false)
+          turtles_submersed(config.turtle_sumbersed_for +
+                            config.turtle_sumberged_time,
+                            false)
 {
-    // std::vector<Coaster> vec0;
-    // int row_num = 0;
-    //
-    //
-    // // learned how to use rand from https://www.cplusplus
-    // // .com/reference/cstdlib/rand/
-    // srand(time(NULL));
-    // int rand_num;
-    // for(size_t row = 0; row < config.car_rows.size(); row++)
-    // {
-    //     for (int ct = 0; ct < config.car_rows.at(row); ct++) {
-    //         rand_num = rand() % 100;
-    //         vec0.push_back(
-    //             Coaster(config,
-    //                     Coaster::object_type::car,
-    //                     row_num,
-    //                     {(config.scene_dims.width - config.car_dims.width)
-    //                             * ct / 4 + rand_num,
-    //                      config.scene_dims.height - (3 + row_num) * 45 +
-    //                             config.hop_dist.height / 4}));
-    //     }
-    //     coasters_.push_back(vec0);
-    //     vec0 = {};
-    //     row_num++;
-    // }
-    /* ge211::Random_source<int> deviation(-config.random_deviation_range,
+    ge211::Random_source<int> deviation(-config.random_deviation_range,
                                         config.random_deviation_range);
-    for(size_t i = 0; i < config.car_rows.size(); i++){
+    ge211::Random_source<int> initial(25, 100);
+    for(size_t i = 0; i < config.coaster_rows.size(); i++) {
         std::vector<Coaster> vec;
-        for(size_t j = 0; j < config.car_rows[i]; j++){
+        for (size_t j = 0; j < config.coaster_rows[i]; j++) {
             int x_step = config.spacings[i];
-            int y_step = config.hop_dist.height + 2;
-            Position pos(x_step * j + deviation.next(),
+            int y_step = config.hop_dist.height + 1;
+            Position pos(initial.next() + x_step * j + deviation.next(),
                          config.bottom_lane_y - y_step * i);
-            Coaster::object_type type = static_cast<Coaster::object_type>
-                    (static_cast<int>(Coaster::object_type::racecar_1) + i);
-            vec.push_back(Coaster(config,
-                                  type,
-                                  i, pos));
-     */
-
-    /// Add car coasters //////////////////////////////////////////////////////
-    /*
-    std::vector<coaster> vec0;
-    int row_num = 0;
-    // learned how to use rand from https://www.cplusplus
-    // .com/reference/cstdlib/rand/
-
-    srand(time(NULL));
-    int rand_num;
-    for(size_t row = 0; row < config.car_rows.size(); row++)
-    {
-        for (int ct = 0; ct < config.car_rows.at(row); ct++) {
-            rand_num = rand() % 100;
-            vec0.push_back(
-                coaster(config,
-                        coaster::object_type::car,
-                        row_num,
-                        {(config.scene_dims.width - config.car_dims.width)
-                                * ct / 4 + rand_num,
-                         config.scene_dims.height - (3 + row_num) * 45 +
-                                config.hop_dist.height/4}));
+            vec.push_back(Coaster(config, i, pos));
         }
         coasters_.push_back(vec);
     }
-     */
-    ///////////////////////////////////////////////////////////////////////////
-    initialize_coaster(std::vector<int> {0, 1, 2, 3, 4},
-                       coaster::object_type::car,
-                       config
-    .car_dims);
-
-    initialize_coaster(std::vector<int> {7},
-                       coaster::object_type::short_log,
-                       config.short_log_dims);
-
-    initialize_coaster(std::vector<int> {8},
-                       coaster::object_type::long_log,
-                       config.long_log_dims);
-
-    initialize_coaster(std::vector<int> {10},
-                       coaster::object_type::medium_log,
-                       config.medium_log_dims);
-
-    initialize_coaster(std::vector<int> {6}, coaster::object_type::passive_turtle,
-                       config.three_turtle_dims);
-
-    initialize_coaster(std::vector<int> {9}, coaster::object_type::passive_turtle,
-                       config.two_turtle_dims);
 }
 
 void
 Model::on_frame(double dt)
 {
-    // update the clocks
-    if (turtles_submersed.time() == 0)
-    {
-        turtles_submersed.reset();
-        turtle_torpedo.resume();
-        turtle_timer.resume();
-    }
-    turtle_torpedo.dec(dt);
-    turtle_timer.dec(dt);
     hop_clock_.dec(dt);
     reset_clock_.dec(dt);
-    turtles_submersed.dec(dt);
-
 
     move_coasters(dt, coasters_);
 
@@ -142,24 +57,6 @@ Model::on_frame(double dt)
     // reset the frog, if necessary
     if(reset_clock_.time() == 0){
         reset_frog();
-    }
-
-    // submerges the turtles
-    if (turtles_submersed.time() == 0)
-    {
-        turtles_submerge(coasters_);
-    }
-    else if (turtle_timer.time() == 0)
-    {
-        turtles_submerge(coasters_);
-        turtle_timer.reset();
-        turtle_timer.pause();
-    }
-    else if (turtle_torpedo.time() == 0)
-    {
-        turtles_submerge(coasters_);
-        turtle_torpedo.reset();
-        turtle_torpedo.pause();
     }
 }
 
@@ -205,61 +102,7 @@ Model::get_coasters() const
 }
 
 void
-Model::initialize_coaster(
-        std::vector<int> rows_to_initialize,
-        coaster::object_type obj_type,
-        Dimension type_dimensions)
+Model::turtles_submerge(Coaster_matrix& matrix)
 {
-    std::vector<coaster> vec0;
-    // learned how to use rand from https://www.cplusplus
-    // .com/reference/cstdlib/rand/
 
-    srand(time(NULL));
-    int rand_num;
-    for(auto row_num : rows_to_initialize)
-    {
-        for (int ct = 0; ct < config.coaster_rows.at(size_t(row_num)); ct++) {
-            rand_num = rand() % 4000 + 1000;
-            if (obj_type == coaster::passive_turtle && ct%2 == 0 && ct != 0)
-            {
-                vec0.push_back(
-                        coaster(config, coaster::turtle,
-                                row_num,
-                                {(config.scene_dims.width * ct / (config
-                                .coaster_rows.at(size_t(row_num)) -1))
-                                 + rand_num / type_dimensions.width ,
-                                 config.scene_dims.height - (3 + row_num) *
-                                 45 + config.hop_dist.height/4}));
-            }
-            else {
-
-                vec0.push_back(
-                        coaster(config,
-                                obj_type,
-                                row_num,
-                                {(config.scene_dims.width * ct / (config
-                                .coaster_rows.at(size_t(row_num)) - 1))
-                                 + rand_num / type_dimensions.width,
-                                 config.scene_dims.height - (3 + row_num) *
-                                 45 + config.hop_dist.height / 4}));
-            }
-        }
-        coasters_.push_back(vec0);
-        vec0 = {};
-        row_num++;
-    }
-}
-
-void
-Model::turtles_submerge(coaster_matrix& matrix)
-{
-    for (auto& vec : matrix){
-
-        for (auto& obj : vec)
-        {
-            std::cout << obj.coaster_type();
-            obj.submerge_turtle();
-            std::cout << obj.coaster_type() << "\n";
-        }
-    }
 }

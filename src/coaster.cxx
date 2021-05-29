@@ -2,24 +2,23 @@
 
 #include <iostream>
 
-Coaster::Coaster(const Game_config& config, object_type
-type, int row_num, Position start_pos)
+Coaster::Coaster(const Game_config& config, int row_num, Position start_pos)
         : x_(start_pos.x),
-          type_(type),
           row_(row_num),
           velocity_(config.row_velocity(row_num)),
-          hostile_(type > passive_turtle)
+          hostile_(true)
 {
     Dimension body_dims;
     if(row_num < 4){
         body_dims = config.coaster_small;
-    }else if(row_num == 4 || row_num == 6 || row_num == 8){
+    }else if(row_num == 4 || row_num == 7 || row_num == 9){
         body_dims = config.coaster_medium;
-    }else if(row_num == 9){
+    }else if(row_num == 6 || row_num == 10){
         body_dims = config.coaster_long;
-    }else if(row_num == 7){
+    }else if(row_num == 8){
         body_dims = config.coaster_longest;
     }else{
+        std::cerr << row_num << " is not valid" << std::endl;
         throw std::invalid_argument("Invalid row number");
     }
     body_ = {start_pos.x, start_pos.y, body_dims.width, body_dims.height};
@@ -66,34 +65,10 @@ Coaster::is_hostile() const
     return hostile_;
 }
 
-coaster::object_type&
-coaster::coaster_type()
-{
-    return type_;
-}
-
 void
-coaster::submerge_turtle()
+Coaster::submerge_turtle()
 {
-    if (type_ == coaster::submerged_turtle)
-    {
-        type_ = coaster::turtle;
-    }
-    else if (type_ == coaster::submerging_turtle)
-    {
-        type_ = coaster::submerged_turtle;
-    }
-    else if (type_ == coaster::turtle)
-    {
-        type_ = coaster::submerging_turtle;
-    }
-}
 
-
-int
-coaster::get_row()
-{
-    return row_;
 }
 
 int
