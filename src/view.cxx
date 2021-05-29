@@ -145,4 +145,3 @@ View::draw_coasters(ge211::Sprite_set& set)
         }
     }
 }
-
