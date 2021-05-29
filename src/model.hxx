@@ -87,4 +87,7 @@ public:
 
     /// submerges the turtles
     void turtles_submerge(Coaster_matrix&);
+
+    /// Checks if the frog is on top of a log or turtle that is above water
+    const Coaster* frog_on_platform() const;
 };

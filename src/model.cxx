@@ -38,12 +38,6 @@ Model::on_frame(double dt)
 
     move_coasters(dt, coasters_);
 
-    // check if frog is in kill_zone
-    if(frog_.hits(kill_zone_)){
-        frog_.alive = false;
-        reset_clock_.resume();
-    }
-
     // check collision with cars
     for(auto vec : coasters_){
         for(auto coaster : vec){
@@ -52,6 +46,19 @@ Model::on_frame(double dt)
                 reset_clock_.resume();
             }
         }
+    }
+
+    const Coaster* cstrp = frog_on_platform();
+    // check if frog is in kill_zone and not on moving platform
+    if(frog_.hits(kill_zone_) && cstrp == nullptr){
+        frog_.alive = false;
+        reset_clock_.resume();
+    }
+
+    // move frog, if it's on a platform
+    if(cstrp != nullptr){
+        auto coaster = *cstrp;
+        frog_.move_with(coaster, dt);
     }
 
     // reset the frog, if necessary
@@ -106,3 +113,18 @@ Model::turtles_submerge(Coaster_matrix& matrix)
 {
 
 }
+
+const Coaster*
+Model::frog_on_platform() const
+{
+    for(auto& vec : coasters_){
+        for(auto& coaster : vec){
+            if(frog_.hits(coaster.body()) && !coaster.is_hostile()){
+                return &coaster;
+            }
+        }
+    }
+    return nullptr;
+}
+
+

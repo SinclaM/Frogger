@@ -6,12 +6,16 @@ Coaster::Coaster(const Game_config& config, int row_num, Position start_pos)
         : x_(start_pos.x),
           row_(row_num),
           velocity_(config.row_velocity(row_num)),
-          hostile_(true)
+          hostile_(false)
 {
     Dimension body_dims;
-    if(row_num < 4){
+    if(row_num < 4) {
+        hostile_ = true;
         body_dims = config.coaster_small;
-    }else if(row_num == 4 || row_num == 7 || row_num == 9){
+    }else if(row_num == 4){
+        hostile_ = true;
+        body_dims = config.coaster_medium;
+    }else if(row_num == 7 || row_num == 9){
         body_dims = config.coaster_medium;
     }else if(row_num == 6 || row_num == 10){
         body_dims = config.coaster_long;
@@ -75,4 +79,10 @@ int
 Coaster::row() const
 {
     return row_;
+}
+
+double
+Coaster::dx(double const dt) const
+{
+    return dt * velocity_;
 }

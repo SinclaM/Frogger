@@ -5,7 +5,8 @@ Frog::Frog(Game_config const& config)
                 config.frog_dims.width, config.frog_dims.height),
           hop_dist_(config.hop_dist),
           facing_(0, -1),
-          alive(true)
+          alive(true),
+          x_(config.start.x)
 { }
 
 void
@@ -25,6 +26,7 @@ Frog::move_to(Frog::Position pos, Game_config const& config)
     if(config.in_scene(pos) &&
             config.in_scene(pos.down_right_by(config.frog_dims))) {
         body_.x = pos.x;
+        x_ = pos.x;
         body_.y = pos.y;
         return true;
     }
@@ -52,4 +54,11 @@ Frog::hits(Frog::Rectangle const rec) const
         return false;
     }
     return true;
+}
+
+void
+Frog::move_with(Coaster const coaster, double const dt)
+{
+    x_ += coaster.dx(dt);
+    body_.x = x_;
 }

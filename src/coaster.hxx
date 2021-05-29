@@ -49,6 +49,9 @@ public:
     /// submerges the turtle
     void submerge_turtle();
 
+    /// Gets the change in x position a coaster will move in time dt
+    double dx(double const dt) const;
+
 private:
 
     /// The objects hit box
