@@ -80,11 +80,6 @@ public:
     /// Gets the interactive objects
     Coaster_matrix get_coasters() const;
 
-    /// Initializes the a type of coaster and adds them to the model
-    /// initializer
-    void initialize_coaster(std::vector<int> rows_to_initialize,
-                            Dimension type_dimensions);
-
     /// submerges the turtles
     void turtles_submerge();
 

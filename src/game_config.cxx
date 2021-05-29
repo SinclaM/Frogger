@@ -2,9 +2,9 @@
 
 Game_config::Game_config()
         : scene_dims(692, 720),
-          frog_dims(42, 42),
+          frog_dims(32, 24),
           hop_dist(46, 45),
-          start(346, 632),
+          start(346, 639),
           lifetime(60),
           hop_time(7.0 / 60),
           car_dims(65, 20),
