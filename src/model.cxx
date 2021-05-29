@@ -55,10 +55,10 @@ Model::on_frame(double dt)
         reset_clock_.resume();
     }
 
-    // move frog, if it's on a platform
-    if(cstrp != nullptr){
+    // move frog, if it's on a platform and alive
+    if(cstrp != nullptr && frog_.alive){
         auto coaster = *cstrp;
-        frog_.move_with(coaster, dt);
+        frog_.move_with(coaster, dt, config);
     }
 
     // reset the frog, if necessary

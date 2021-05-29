@@ -57,8 +57,13 @@ Frog::hits(Frog::Rectangle const rec) const
 }
 
 void
-Frog::move_with(Coaster const coaster, double const dt)
+Frog::move_with(Coaster const coaster, double const dt,
+                Game_config const& config)
 {
-    x_ += coaster.dx(dt);
-    body_.x = x_;
+    auto dx = coaster.dx(dt);
+    if(config.in_scene({static_cast<int>(x_ + dx), body_.y,
+                        body_.width, body_.height})) {
+        x_ += coaster.dx(dt);
+        body_.x = x_;
+    }
 }

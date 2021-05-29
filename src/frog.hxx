@@ -53,7 +53,7 @@ public:
     bool hits(Rectangle const) const;
 
     /// Moves a frog with a platform
-    void move_with(Coaster const, double const dt);
+    void move_with(Coaster const, double const dt, Game_config const&);
 
 private:
 
