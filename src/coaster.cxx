@@ -35,10 +35,10 @@ void Coaster::move_to(int x_pos, const Game_config& config)
     }
     else{
         if(velocity_ < 0){
-            body_.x = config.scene_dims.width - body_.width;
+            body_.x = config.scene_dims.width;
             x_ = body_.x;
         }else if(velocity_ > 0){
-            body_.x = 0;
+            body_.x = -body_.width;
             x_ = body_.x;
         }
     }
