@@ -4,6 +4,8 @@
 
 #include "game_config.hxx"
 
+#include "coaster.hxx"
+
 /// A player controlled frog
 class Frog
 {
@@ -50,6 +52,9 @@ public:
     /// Detects collision between body_ and a rectangle
     bool hits(Rectangle const) const;
 
+    /// Moves a frog with a platform
+    void move_with(Coaster const, double const dt, Game_config const&);
+
 private:
 
     //
@@ -64,4 +69,7 @@ private:
 
     /// The direction the frog is facing
     Direction facing_;
+
+    /// Real x value of the body
+    double x_;
 };

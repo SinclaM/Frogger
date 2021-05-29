@@ -2,83 +2,109 @@
 
 #include <iostream>
 
-coaster::coaster(const Game_config& config, object_type
-type, int row_num, Position start_pos)
-        : body_{start_pos.x, start_pos.y, config.car_dims.width,
-                config.car_dims.height},
-          x_(start_pos.x),
+Coaster::Coaster(const Game_config& config, int row_num, object_type
+type, Position start_pos)
+        : x_(start_pos.x),
           type_(type),
           row_(row_num),
           velocity_(config.row_velocity(row_num)),
-          hostile_(type > passive_turtle)
+          hostile_(false)
+{
+    Dimension body_dims;
+    if(row_num < 4) {
+        hostile_ = true;
+        body_dims = config.coaster_small;
+    }else if(row_num == 4){
+        hostile_ = true;
+        body_dims = config.coaster_medium;
+    }else if(row_num == 7 || row_num == 9){
+        body_dims = config.coaster_medium;
+    }else if(row_num == 6 || row_num == 10){
+        body_dims = config.coaster_long;
+    }else if(row_num == 8){
+        body_dims = config.coaster_longest;
+    }else{
+        std::cerr << row_num << " is not valid" << std::endl;
+        throw std::invalid_argument("Invalid row number");
+    }
+    body_ = {start_pos.x, start_pos.y, body_dims.width, body_dims.height};
+}
+
+Coaster::Coaster(Game_config const& config, int row_num, Position pos)
+    : Coaster(config, row_num, other, pos)
 { }
 
-void coaster::move_to(int x_pos, const Game_config& config)
+void Coaster::move_to(int x_pos, const Game_config& config)
 {
     if(config.in_object_scene({x_pos, body_.center().y})){
         body_.x = x_pos;
     }
     else{
         if(velocity_ < 0){
-            body_.x = config.scene_dims.width - body_.width;
+            body_.x = config.scene_dims.width;
             x_ = body_.x;
         }else if(velocity_ > 0){
-            body_.x = 0;
+            body_.x = -body_.width;
             x_ = body_.x;
         }
     }
 }
 
-void coaster::move(double const dt, const Game_config& config)
+void Coaster::move(double const dt, const Game_config& config)
 {
     x_ += dt * velocity_;
     body_.x = x_;
     move_to(x_, config);
 }
 
-coaster::Position
-coaster::coaster_pos() const
+Coaster::Position
+Coaster::coaster_pos() const
 {
     return {body_.x, body_.y};
 }
 
-coaster::Rectangle
-coaster::body() const
+Coaster::Rectangle
+Coaster::body() const
 {
     return body_;
 }
 
 bool
-coaster::is_hostile() const
+Coaster::is_hostile() const
 {
     return hostile_;
 }
 
-coaster::object_type&
-coaster::coaster_type()
-{
-    return type_;
-}
-
 void
-coaster::submerge_turtle()
+Coaster::submerge_turtle()
 {
-    if (type_ == coaster::submerged_turtle)
-    {
-        type_ = coaster::turtle;
-    }
-    else if (type_ == coaster::submerging_turtle)
-    {
-        type_ = coaster::submerged_turtle;
-    }
-    else if (type_ == coaster::turtle)
-    {
-        type_ = coaster::submerging_turtle;
+    if(type_ == Coaster::submerged_turtle){
+        type_ = Coaster::turtle;
+        hostile_ = false;
+    }else if (type_ == Coaster::submerging_turtle){
+        type_ = Coaster::submerged_turtle;
+        hostile_ = true;
+    }else if (type_ == Coaster::turtle){
+        type_ = Coaster::submerging_turtle;
     }
 }
 
 int
-coaster::get_row()
+Coaster::row() const
 {
     return row_;
 }
+
+double
+Coaster::dx(double const dt) const
+{
+    return dt * velocity_;
+}
+
+Coaster::object_type
+Coaster::type()
+{
+    return type_;
+}
+
+

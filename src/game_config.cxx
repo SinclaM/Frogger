@@ -8,18 +8,20 @@ Game_config::Game_config()
           lifetime(60),
           hop_time(7.0 / 60),
           car_dims(65, 20),
-          row_velocities{-10, 10, 10, -10, -10, 0, -10, 10, 10, -10, 10},
-          coaster_rows{4, 2, 4, 4, 3, 0, 3, 4, 3, 3, 3},
+          row_velocities{-30, 30, -30, 70, -50, 0, -40, 50, 80, -50, 30},
+          coaster_rows{3, 3, 3, 1, 2, 0, 4, 3, 2, 4, 3},
           kill_zone(0, 0, 692, 356),
           reset_wait_time(45.0 / 60),
-          short_log_dims({50,20}),
-          medium_log_dims({125,20}),
-          long_log_dims({200, 20}),
-          three_turtle_dims({125,20}),
           turtle_sumberged_time(10),
           turtle_submerging_time(7),
           turtle_sumbersed_for(3),
-          two_turtle_dims({80,20})
+          bottom_lane_y(595),
+          spacings{200, 200, 200, 200, 400, 0, 200, 200, 400, 200, 200},
+          random_deviation_range(30),
+          coaster_small(32, 32),
+          coaster_medium(64, 32),
+          coaster_long(96, 32),
+          coaster_longest(128, 32)
 { }
 
 bool

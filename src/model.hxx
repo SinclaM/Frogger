@@ -24,7 +24,7 @@ public:
     using Position = ge211::Posn<int>;
     using Rectangle = ge211::Rect<int>;
     using Dimension = ge211::Dims<int>;
-    using coaster_matrix = std::vector<std::vector<coaster>>;
+    using Coaster_matrix = std::vector<std::vector<Coaster>>;
 
 private:
     /// The frog
@@ -43,16 +43,16 @@ private:
     Clock reset_clock_;
 
     /// Vector of Vectors containing the interactive objects in each row
-    coaster_matrix coasters_;
+    Coaster_matrix coasters_;
 
     /// Clock determining when the turtle submerges
     Clock turtle_timer;
 
     /// Clock determining when the user sees the indicator that the turtle is
-    // submerging
+    /// submerging
     Clock turtle_torpedo;
 
-    /// Clock determining how long the turtles are submeresed for
+    /// Clock determining how long the turtles are submersed for
     Clock turtles_submersed;
 
 public:
@@ -75,15 +75,19 @@ public:
     Frog frog() const;
 
     /// Move the coasters every four frames
-    void move_coasters(double const dt, coaster_matrix&);
+    void move_coasters(double const dt, Coaster_matrix&);
 
     /// Gets the interactive objects
-    coaster_matrix get_coasters() const;
+    Coaster_matrix get_coasters() const;
 
     /// Initializes the a type of coaster and adds them to the model
-    // initializer
-    void initialize_coaster(std::vector<int> rows_to_initialize, coaster::object_type obj_type, Dimension type_dimensions);
+    /// initializer
+    void initialize_coaster(std::vector<int> rows_to_initialize,
+                            Dimension type_dimensions);
 
     /// submerges the turtles
-    void turtles_submerge(coaster_matrix&);
+    void turtles_submerge();
+
+    /// Checks if the frog is on top of a log or turtle that is above water
+    const Coaster* frog_on_platform() const;
 };
