@@ -60,6 +60,9 @@ private:
     /// A vector holding all the homes for the frog
     std::vector<Home> homes_;
 
+    /// Determines whether the games is still live (true) or dead (false)
+    bool game_status;
+
 public:
     /// The game config
     Game_config const config;

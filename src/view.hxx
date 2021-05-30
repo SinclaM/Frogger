@@ -43,6 +43,12 @@ private:
     /// Add the score
     void draw_score(ge211::Sprite_set& set);
 
+    /// Display's the frog's remaining lives
+    void draw_lives(ge211::Sprite_set& set);
+
+    /// Draw the game over screen
+    void draw_game_over(ge211::Sprite_set& set);
+
     //
     // PRIVATE DATA MEMBERS
     //
@@ -78,5 +84,24 @@ private:
 
     /// Happy frog sitting in a home
     Image const home_sprite;
+
+    /// Score Sprite
+    ge211::Font sans25{"sans.ttf", 25};
     ge211::Text_sprite score_sprite;
+
+
+    /// Lives Sprite
+    ge211::Rectangle_sprite const life_sprite;
+
+    /// Sprite for end game screen
+    ge211::Text_sprite end_game_score;
+    ge211::Text_sprite game_over_text;
+    ge211::Text_sprite your_score_text;
+    ge211::Font end_game_score_font{"sans.ttf", 50};
+    ge211::Rectangle_sprite end_game_fade;
+
+
+
+
+
 };

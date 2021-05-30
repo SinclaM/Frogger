@@ -102,6 +102,9 @@ struct Game_config{
     /// Points awarded for reaching a lillypad
     int lilly_pad_points;
 
+    /// Frog starting lives
+    int frog_starting_lives;
+
     /// Returns whether a position is a valid position on screen for the frog
     /// to be in
     bool in_scene(Position const) const;

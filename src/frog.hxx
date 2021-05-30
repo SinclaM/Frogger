@@ -65,6 +65,12 @@ public:
     /// Gets the frog's score
     int get_frog_score();
 
+    /// Returns the frog's lives
+    int frog_lives_left();
+
+    /// Decrements the frog's lives by one
+    void decrement_frog_life();
+
 private:
 
     //
@@ -87,9 +93,14 @@ private:
     int score_;
 
     /// The frog's highest y_position in the given life, used to determine
-    // when to give points for foward movements
+    // when to give points for forward movements
     int highest_y_pos;
+
+    /// The number of lives the frog has
+    int lives_;
 
     /// Increases the frog's score by the specified amount
     void increment_score(int);
+
+
 };
