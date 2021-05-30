@@ -55,6 +55,16 @@ public:
     /// Moves a frog with a platform
     void move_with(Coaster const, double const dt, Game_config const&);
 
+
+    /// Increases the frogs score for forward steps
+    void increment_score_for_foward_steps(Game_config const&);
+
+    /// Increases the frogs score for lillypads
+    void increment_score_for_lillypad(Game_config const&);
+
+    /// Gets the frog's score
+    int get_frog_score();
+
 private:
 
     //
@@ -72,4 +82,14 @@ private:
 
     /// Real x value of the body
     double x_;
+
+    /// The frog's score
+    int score_;
+
+    /// The frog's highest y_position in the given life, used to determine
+    // when to give points for foward movements
+    int highest_y_pos;
+
+    /// Increases the frog's score by the specified amount
+    void increment_score(int);
 };

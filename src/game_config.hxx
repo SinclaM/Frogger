@@ -96,6 +96,12 @@ struct Game_config{
     /// Locations of the homes
     std::vector<Position> home_locations;
 
+    /// Points awarded for foward steps
+    int forward_step_points;
+
+    /// Points awarded for reaching a lillypad
+    int lilly_pad_points;
+
     /// Returns whether a position is a valid position on screen for the frog
     /// to be in
     bool in_scene(Position const) const;

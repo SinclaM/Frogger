@@ -40,6 +40,9 @@ private:
     /// Add the homes
     void draw_homes(ge211::Sprite_set& set);
 
+    /// Add the score
+    void draw_score(ge211::Sprite_set& set);
+
     //
     // PRIVATE DATA MEMBERS
     //
@@ -75,4 +78,5 @@ private:
 
     /// Happy frog sitting in a home
     Image const home_sprite;
+    ge211::Text_sprite score_sprite;
 };

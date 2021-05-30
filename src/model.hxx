@@ -99,4 +99,5 @@ public:
 
     /// Checks whether the game is over
     bool is_game_over() const;
+
 };

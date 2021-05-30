@@ -67,6 +67,7 @@ Model::on_frame(double dt)
     Home* homep = frog_touching_home();
     if(homep != nullptr){
         homep->occupy();
+        frog_.increment_score_for_lillypad(config);
         reset_frog();
     }
 
@@ -196,5 +197,7 @@ Model::is_game_over() const
     }
     return false;
 }
+
+
 
 

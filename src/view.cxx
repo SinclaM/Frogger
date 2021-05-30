@@ -5,6 +5,8 @@ static int surface_layer = 1; // water, scoring, timer, life count
 static int coaster_layer = 2; // cars, turtles, logs
 static int frog_layer = 3; // frog
 
+ge211::Font sans25{"sans.ttf", 25};
+
 View::View(Model const& model)
         : model_(model),
           frog_up_sprite("frog_up.png"),
@@ -25,7 +27,8 @@ View::View(Model const& model)
           three_turtles_sprite("three_turtles.png"),
           two_turtles_diving_sprite("two_turtles_diving.png"),
           three_turtles_diving_sprite("three_turtles_diving.png"),
-          home_sprite("home.png")
+          home_sprite("home.png"),
+          score_sprite()
 { }
 
 void
@@ -36,6 +39,7 @@ View::draw(ge211::Sprite_set& set)
     draw_coasters(set);
     draw_frog(set);
     draw_homes(set);
+ //   draw_score(set);
 }
 
 View::Dimensions
@@ -157,3 +161,16 @@ View::draw_homes(ge211::Sprite_set& set)
         }
     }
 }
+
+/*
+void
+View::draw_score(ge211::Sprite_set& set)
+{
+    std::string score_string =
+            std::to_string(model_.frog().get_frog_score());
+    ge211::Text_sprite::Builder score_builder(sans25);
+    score_builder.color(ge211::Color::white()) << score_string;
+    score_sprite.reconfigure(score_builder);
+    set.add_sprite(score_sprite, {25, 25}, frog_layer);
+}
+ */
