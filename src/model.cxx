@@ -12,7 +12,8 @@ Model::Model(Game_config const& config)
           turtle_torpedo(config.turtle_submerging_time, false),
           turtles_submersed(config.turtle_sumbersed_for +
                             config.turtle_sumberged_time,
-                            false)
+                            false),
+          homes_(make_homes(config))
 {
     ge211::Random_source<int> deviation(-config.random_deviation_range,
                                         config.random_deviation_range);
@@ -39,8 +40,7 @@ Model::Model(Game_config const& config)
 void
 Model::on_frame(double dt)
 {
-    if (turtles_submersed.time() == 0)
-    {
+    if(turtles_submersed.time() == 0){
         turtles_submersed.reset();
         turtle_torpedo.resume();
         turtle_timer.resume();
@@ -63,9 +63,18 @@ Model::on_frame(double dt)
         }
     }
 
+    // Check if frog is at an unoccupied home
+    Home* homep = frog_touching_home();
+    if(homep != nullptr){
+        homep->occupy();
+        reset_frog();
+    }
+
+
     const Coaster* cstrp = frog_on_platform();
+
     // check if frog is in kill_zone and not on moving platform
-    if(frog_.hits(kill_zone_) && cstrp == nullptr){
+    if(frog_.hits(kill_zone_) && cstrp == nullptr && homep == nullptr){
         frog_.alive = false;
         reset_clock_.resume();
     }
@@ -159,6 +168,33 @@ Model::frog_on_platform() const
         }
     }
     return nullptr;
+}
+
+Home*
+Model::frog_touching_home() const
+{
+    for(auto& home : homes_){
+        if(!home.occupied() && frog_.hits(home.body())){
+            return const_cast<Home *>(&home);
+        }
+    }
+    return nullptr;
+}
+
+std::vector<Home>
+Model::homes() const
+{
+    return homes_;
+}
+
+bool
+Model::is_game_over() const
+{
+    // TODO: add checking for out of lives
+    if(all_occupied(homes_)){
+        return true;
+    }
+    return false;
 }
 
 

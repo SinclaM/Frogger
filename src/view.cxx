@@ -24,7 +24,8 @@ View::View(Model const& model)
           two_turtles_sprite("two_turtles.png"),
           three_turtles_sprite("three_turtles.png"),
           two_turtles_diving_sprite("two_turtles_diving.png"),
-          three_turtles_diving_sprite("three_turtles_diving.png")
+          three_turtles_diving_sprite("three_turtles_diving.png"),
+          home_sprite("home.png")
 { }
 
 void
@@ -34,6 +35,7 @@ View::draw(ge211::Sprite_set& set)
     set.add_sprite(background, ge211::the_origin, background_layer);
     draw_coasters(set);
     draw_frog(set);
+    draw_homes(set);
 }
 
 View::Dimensions
@@ -142,6 +144,16 @@ View::draw_coasters(ge211::Sprite_set& set)
                                coaster_layer);
                 break;
             }
+        }
+    }
+}
+
+void
+View::draw_homes(ge211::Sprite_set& set)
+{
+    for(auto home : model_.homes()){
+        if(home.occupied()){
+            set.add_sprite(home_sprite, home.body().top_left(), coaster_layer);
         }
     }
 }

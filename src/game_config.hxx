@@ -90,6 +90,12 @@ struct Game_config{
     Dimension coaster_long;
     Dimension coaster_longest;
 
+    /// Dimensions of the homes for the frog
+    Dimension home_dims;
+
+    /// Locations of the homes
+    std::vector<Position> home_locations;
+
     /// Returns whether a position is a valid position on screen for the frog
     /// to be in
     bool in_scene(Position const) const;

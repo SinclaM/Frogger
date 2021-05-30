@@ -21,7 +21,10 @@ Game_config::Game_config()
           coaster_small(32, 32),
           coaster_medium(64, 32),
           coaster_long(96, 32),
-          coaster_longest(128, 32)
+          coaster_longest(128, 32),
+          home_dims(50, 45),
+          home_locations{{47, 88}, {182, 88}, {320, 88},
+                         {457, 88}, {595, 88}}
 { }
 
 bool

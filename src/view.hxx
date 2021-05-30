@@ -34,7 +34,11 @@ private:
     /// Add the appropriate frog sprite
     void draw_frog(ge211::Sprite_set& set);
 
+    /// Add the coasters
     void draw_coasters(ge211::Sprite_set& set);
+
+    /// Add the homes
+    void draw_homes(ge211::Sprite_set& set);
 
     //
     // PRIVATE DATA MEMBERS
@@ -68,4 +72,7 @@ private:
     Image const three_turtles_sprite;
     Image const two_turtles_diving_sprite;
     Image const three_turtles_diving_sprite;
+
+    /// Happy frog sitting in a home
+    Image const home_sprite;
 };
