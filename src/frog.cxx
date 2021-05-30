@@ -6,7 +6,10 @@ Frog::Frog(Game_config const& config)
           hop_dist_(config.hop_dist),
           facing_(0, -1),
           alive(true),
-          x_(config.start.x)
+          x_(config.start.x),
+          score_(0),
+          highest_y_pos(config.start.y),
+          lives_(config.frog_starting_lives)
 { }
 
 void
@@ -65,5 +68,48 @@ Frog::move_with(Coaster const coaster, double const dt,
                         body_.width, body_.height})) {
         x_ += coaster.dx(dt);
         body_.x = x_;
+        increment_score_for_foward_steps(config);
     }
+}
+
+void
+Frog::increment_score(int increment)
+{
+    score_ += increment;
+}
+
+
+void
+Frog::increment_score_for_foward_steps(Game_config const& config)
+{
+    if (body_.y < highest_y_pos)
+    {
+        increment_score(config.forward_step_points);
+        highest_y_pos = body_.y;
+    }
+}
+
+void
+Frog::increment_score_for_lillypad(const Game_config& config)
+{
+    increment_score(config.lilly_pad_points);
+    highest_y_pos = config.start.y;
+}
+
+int
+Frog::get_frog_score()
+{
+    return score_;
+}
+
+int
+Frog::frog_lives_left()
+{
+    return lives_;
+}
+
+void
+Frog::decrement_frog_life()
+{
+    lives_ -= 1;
 }

@@ -9,7 +9,7 @@ Game_config::Game_config()
           hop_time(7.0 / 60),
           car_dims(65, 20),
           row_velocities{-30, 30, -30, 70, -50, 0, -40, 50, 80, -50, 30},
-          coaster_rows{3, 3, 3, 1, 2, 0, 4, 3, 2, 4, 3},
+          coaster_rows{3, 3, 3, 1, 2, 0, 4, 3, 3, 4, 5},
           kill_zone(0, 0, 692, 356),
           reset_wait_time(45.0 / 60),
           turtle_sumberged_time(10),
@@ -24,7 +24,10 @@ Game_config::Game_config()
           coaster_longest(128, 32),
           home_dims(50, 45),
           home_locations{{47, 88}, {182, 88}, {320, 88},
-                         {457, 88}, {595, 88}}
+                         {457, 88}, {595, 88}},
+          forward_step_points(10),
+          lilly_pad_points(200),
+          frog_starting_lives(3)
 { }
 
 bool

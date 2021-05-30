@@ -13,7 +13,8 @@ Model::Model(Game_config const& config)
           turtles_submersed(config.turtle_sumbersed_for +
                             config.turtle_sumberged_time,
                             false),
-          homes_(make_homes(config))
+          homes_(make_homes(config)),
+          game_status(true)
 {
     ge211::Random_source<int> deviation(-config.random_deviation_range,
                                         config.random_deviation_range);
@@ -53,12 +54,26 @@ Model::on_frame(double dt)
 
     move_coasters(dt, coasters_);
 
+    // increment the score if frog passes a new highest y value
+    frog_.increment_score_for_foward_steps(config);
+
     // check collision with cars
     for(auto vec : coasters_){
         for(auto coaster : vec){
-            if(frog_.hits(coaster.body()) && coaster.is_hostile()){
-                frog_.alive = false;
-                reset_clock_.resume();
+            if(frog_.hits(coaster.body()) && coaster.is_hostile() && frog_
+            .alive == true){
+                if (frog_.frog_lives_left() == 0)
+                {
+                    game_status = false;
+                }
+                else
+                {
+                    frog_.alive = false;
+                    reset_clock_.resume();
+                    std::cout << "called from coaster collision\n";
+                    frog_.decrement_frog_life();
+                }
+
             }
         }
     }
@@ -67,6 +82,7 @@ Model::on_frame(double dt)
     Home* homep = frog_touching_home();
     if(homep != nullptr){
         homep->occupy();
+        frog_.increment_score_for_lillypad(config);
         reset_frog();
     }
 
@@ -74,9 +90,20 @@ Model::on_frame(double dt)
     const Coaster* cstrp = frog_on_platform();
 
     // check if frog is in kill_zone and not on moving platform
-    if(frog_.hits(kill_zone_) && cstrp == nullptr && homep == nullptr){
-        frog_.alive = false;
-        reset_clock_.resume();
+    if(frog_.hits(kill_zone_) && cstrp == nullptr && homep == nullptr && frog_
+    .alive == true){
+        if (frog_.frog_lives_left() == 0)
+        {
+            game_status = false;
+        }
+        else
+        {
+            frog_.alive = false;
+            reset_clock_.resume();
+            std::cout << "called from kill zone collision \n";
+            frog_.decrement_frog_life();
+        }
+
     }
 
     // move frog, if it's on a platform and alive
@@ -103,6 +130,8 @@ Model::on_frame(double dt)
     // reset the frog, if necessary
     if(reset_clock_.time() == 0){
         reset_frog();
+        std::cout << "called from clock ran out of time\n";
+        frog().decrement_frog_life();
     }
 }
 
@@ -191,10 +220,12 @@ bool
 Model::is_game_over() const
 {
     // TODO: add checking for out of lives
-    if(all_occupied(homes_)){
+    if(all_occupied(homes_) || game_status == false){
         return true;
     }
     return false;
 }
+
+
 
 
