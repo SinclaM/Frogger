@@ -12,6 +12,8 @@
 
 #include "clock.hxx"
 
+#include "home.hxx"
+
 class Model
 {
 public:
@@ -55,6 +57,9 @@ private:
     /// Clock determining how long the turtles are submersed for
     Clock turtles_submersed;
 
+    /// A vector holding all the homes for the frog
+    std::vector<Home> homes_;
+
 public:
     /// The game config
     Game_config const config;
@@ -85,4 +90,13 @@ public:
 
     /// Checks if the frog is on top of a log or turtle that is above water
     const Coaster* frog_on_platform() const;
+
+    /// Checks if the frog is touching an unoccupied home
+    Home* frog_touching_home() const;
+
+    /// Gets the homes
+    std::vector<Home> homes() const;
+
+    /// Checks whether the game is over
+    bool is_game_over() const;
 };

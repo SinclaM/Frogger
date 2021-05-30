@@ -31,7 +31,7 @@ type, Position start_pos)
 }
 
 Coaster::Coaster(Game_config const& config, int row_num, Position pos)
-    : Coaster(config, row_num, other, pos)
+        : Coaster(config, row_num, other, pos)
 { }
 
 void Coaster::move_to(int x_pos, const Game_config& config)
