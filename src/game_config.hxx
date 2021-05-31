@@ -15,6 +15,11 @@ struct Game_config{
     /// Constructor
     Game_config();
 
+    /// Enumeration to refer to lanes
+    enum row {racecar_1_row, tractor_row, pink_car_row, racecar_2_row,
+            truck_row, empty_row, three_turtles_row, small_log_row,
+            long_log_row, two_turtles_row, medium_log_row};
+
     /// Window dimensions
     Dimension scene_dims;
 
@@ -96,7 +101,7 @@ struct Game_config{
     /// Locations of the homes
     std::vector<Position> home_locations;
 
-    /// Points awarded for foward steps
+    /// Points awarded for forward steps
     int forward_step_points;
 
     /// Points awarded for reaching a lillypad
@@ -104,6 +109,52 @@ struct Game_config{
 
     /// Frog starting lives
     int frog_starting_lives;
+
+    /// Lower limit for initial, random distance from left side of screen, a
+    /// shift applied to all coasters in a row, but different for each row
+    int shift_min;
+
+    /// Upper limit for initial, random distance from left side of screen, a
+    /// shift applied to all coasters in a row, but different for each row
+    int shift_max;
+
+    //
+    // Config for the View
+    //
+
+    /// Color for the game over background
+    ge211::Color end_game_background_fade;
+
+    /// Position (top left) of leftmost life sprite
+    Position leftmost_life_pos;
+
+    /// Horizontal spacing between life sprites
+    int life_spacing;
+
+    /// Position of score sprite
+    Position score_pos;
+
+    /// Increase to velocities of coaster after a frog reaches a home
+    int velocity_gain;
+
+    /// Rectangle that will be used for do draw the timer
+    Rectangle timer_rec;
+
+    /// Color that the timer will be drawn with
+    ge211::Color timer_color;
+
+    /// Fraction of the frog which must be colliding with a platform or home
+    /// before the frog will fall into the water. The most lenient collision
+    /// detection would have a value of 0 (the edges can touch and the frog
+    /// will still be on it). The most strict collision detection would have
+    /// a value of 1 (the frog must be entirely on the platform or it will
+    ///  fall off)
+    double frog_collision_fraction;
+
+
+    //
+    // PUBLIC HELPERS
+    //
 
     /// Returns whether a position is a valid position on screen for the frog
     /// to be in
@@ -114,7 +165,6 @@ struct Game_config{
 
     /// Returns the row velocity in pixels per 4 frames
     int row_velocity(int const) const;
-
 
     /// Returns whether or not a position is outside the object scene, which
     /// is 105 pixels off either the left or right of the actual scene dims

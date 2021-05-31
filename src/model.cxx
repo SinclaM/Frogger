@@ -1,4 +1,5 @@
 #include "model.hxx"
+
 #include <iostream>
 
 Model::Model(Game_config const& config)
@@ -18,16 +19,18 @@ Model::Model(Game_config const& config)
 {
     ge211::Random_source<int> deviation(-config.random_deviation_range,
                                         config.random_deviation_range);
-    ge211::Random_source<int> initial(25, 100);
+    ge211::Random_source<int> initial(config.shift_min, config.shift_max);
     for(size_t i = 0; i < config.coaster_rows.size(); i++) {
         std::vector<Coaster> vec;
+        int row_shift = initial.next();
         for (size_t j = 0; j < config.coaster_rows[i]; j++) {
             int x_step = config.spacings[i];
             int y_step = config.hop_dist.height + 1;
-            Position pos(initial.next() + x_step * j + deviation.next(),
+            Position pos(row_shift + x_step * j + deviation.next(),
                          config.bottom_lane_y - y_step * i);
             Coaster::object_type type;
-            if((i == 6 || i == 9) && j == 0){
+            if((i == Game_config::three_turtles_row ||
+            i == Game_config::two_turtles_row) && j == 0){
                 type = Coaster::turtle;
             }else{
                 type = Coaster::other;
@@ -41,6 +44,7 @@ Model::Model(Game_config const& config)
 void
 Model::on_frame(double dt)
 {
+    // update the clocks
     if(turtles_submersed.time() == 0){
         turtles_submersed.reset();
         turtle_torpedo.resume();
@@ -51,29 +55,24 @@ Model::on_frame(double dt)
     turtles_submersed.dec(dt);
     hop_clock_.dec(dt);
     reset_clock_.dec(dt);
+    life_clock_.dec(dt);
 
     move_coasters(dt, coasters_);
+
+    // reset the frog is the life timer has run out
+    if(life_clock_.time() == 0){
+        on_frog_death();
+    }
 
     // increment the score if frog passes a new highest y value
     frog_.increment_score_for_foward_steps(config);
 
     // check collision with cars
-    for(auto vec : coasters_){
-        for(auto coaster : vec){
-            if(frog_.hits(coaster.body()) && coaster.is_hostile() && frog_
-            .alive == true){
-                if (frog_.frog_lives_left() == 0)
-                {
-                    game_status = false;
-                }
-                else
-                {
-                    frog_.alive = false;
-                    reset_clock_.resume();
-                    std::cout << "called from coaster collision\n";
-                    frog_.decrement_frog_life();
-                }
-
+    for(auto vec : coasters_) {
+        for (auto coaster : vec) {
+            if (frog_.hits(coaster.body()) && coaster.is_hostile() &&
+                frog_.alive) {
+                on_frog_death();
             }
         }
     }
@@ -84,26 +83,16 @@ Model::on_frame(double dt)
         homep->occupy();
         frog_.increment_score_for_lillypad(config);
         reset_frog();
+        speed_up(config.velocity_gain);
     }
 
 
     const Coaster* cstrp = frog_on_platform();
 
     // check if frog is in kill_zone and not on moving platform
-    if(frog_.hits(kill_zone_) && cstrp == nullptr && homep == nullptr && frog_
-    .alive == true){
-        if (frog_.frog_lives_left() == 0)
-        {
-            game_status = false;
-        }
-        else
-        {
-            frog_.alive = false;
-            reset_clock_.resume();
-            std::cout << "called from kill zone collision \n";
-            frog_.decrement_frog_life();
-        }
-
+    if(frog_.hits(kill_zone_) && cstrp == nullptr && homep == nullptr &&
+    frog_.alive){
+        on_frog_death();
     }
 
     // move frog, if it's on a platform and alive
@@ -115,13 +104,11 @@ Model::on_frame(double dt)
     // submerges the turtles
     if (turtles_submersed.time() == 0){
         turtles_submerge();
-    }
-    else if (turtle_timer.time() == 0){
+    }else if (turtle_timer.time() == 0){
         turtles_submerge();
         turtle_timer.reset();
         turtle_timer.pause();
-    }
-    else if (turtle_torpedo.time() == 0){
+    }else if (turtle_torpedo.time() == 0){
         turtles_submerge();
         turtle_torpedo.reset();
         turtle_torpedo.pause();
@@ -130,8 +117,6 @@ Model::on_frame(double dt)
     // reset the frog, if necessary
     if(reset_clock_.time() == 0){
         reset_frog();
-        std::cout << "called from clock ran out of time\n";
-        frog().decrement_frog_life();
     }
 }
 
@@ -139,9 +124,10 @@ void
 Model::reset_frog()
 {
     frog_.move_to(config.start.left_by(config.frog_dims.width / 2), config);
-    life_clock_.reset();
     reset_clock_.reset();
     reset_clock_.pause();
+    life_clock_.reset();
+    life_clock_.resume();
     frog_.alive = true;
 }
 
@@ -191,7 +177,8 @@ Model::frog_on_platform() const
 {
     for(auto& vec : coasters_){
         for(auto& coaster : vec){
-            if(frog_.hits(coaster.body()) && !coaster.is_hostile()){
+            if(frog_.stict_hits(coaster.body(), config) &&
+                                     !coaster.is_hostile()){
                 return &coaster;
             }
         }
@@ -203,7 +190,7 @@ Home*
 Model::frog_touching_home() const
 {
     for(auto& home : homes_){
-        if(!home.occupied() && frog_.hits(home.body())){
+        if(!home.occupied() && frog_.stict_hits(home.body(), config)){
             return const_cast<Home *>(&home);
         }
     }
@@ -219,13 +206,38 @@ Model::homes() const
 bool
 Model::is_game_over() const
 {
-    // TODO: add checking for out of lives
-    if(all_occupied(homes_) || game_status == false){
+    if(all_occupied(homes_) || !game_status){
         return true;
     }
     return false;
 }
 
+void
+Model::speed_up(int dv)
+{
+    for(auto& vec : coasters_){
+        for(auto& coaster : vec){
+            coaster.inc_speed(dv);
+        }
+    }
+}
 
+void
+Model::on_frog_death()
+{
+    frog_.alive = false;
+    life_clock_.reset();
+    life_clock_.pause();
+    if (frog_.frog_lives_left() == 0){
+        game_status = false;
+    }else{
+        reset_clock_.resume();
+        frog_.decrement_frog_life();
+    }
+}
 
-
+Clock
+Model::life_clock() const
+{
+    return life_clock_;
+}

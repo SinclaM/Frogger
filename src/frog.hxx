@@ -52,9 +52,11 @@ public:
     /// Detects collision between body_ and a rectangle
     bool hits(Rectangle const) const;
 
+    /// Collision detection but less forgiving
+    bool stict_hits(Rectangle const, Game_config const&) const;
+
     /// Moves a frog with a platform
     void move_with(Coaster const, double const dt, Game_config const&);
-
 
     /// Increases the frogs score for forward steps
     void increment_score_for_foward_steps(Game_config const&);

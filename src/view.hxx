@@ -5,6 +5,9 @@
 class View
 {
 public:
+    /// enumeration for layers to draw on
+    enum layer{background_layer, surface_layer, coaster_layer, frog_layer,
+            top_screen_layer, end_display_layer};
 
     //
     // TYPE ALIASES
@@ -49,9 +52,13 @@ private:
     /// Draw the game over screen
     void draw_game_over(ge211::Sprite_set& set);
 
+    /// Draw the timer
+    void draw_timer(ge211::Sprite_set& set, double x_scale);
+
     //
     // PRIVATE DATA MEMBERS
     //
+
     Model const& model_;
 
     /// The sprites for the frog
@@ -89,9 +96,8 @@ private:
     ge211::Font sans25{"sans.ttf", 25};
     ge211::Text_sprite score_sprite;
 
-
     /// Lives Sprite
-    ge211::Rectangle_sprite const life_sprite;
+    Image const life_sprite;
 
     /// Sprite for end game screen
     ge211::Text_sprite end_game_score;
@@ -100,8 +106,6 @@ private:
     ge211::Font end_game_score_font{"sans.ttf", 50};
     ge211::Rectangle_sprite end_game_fade;
 
-
-
-
-
+    /// Sprite for timer
+    ge211::Rectangle_sprite timer_sprite;
 };
