@@ -84,6 +84,9 @@ Model::on_frame(double dt)
         frog_.increment_score_for_lillypad(config);
         reset_frog();
         speed_up(config.velocity_gain);
+        if(all_occupied(homes_)){
+            life_clock_.pause();
+        }
     }
 
 
