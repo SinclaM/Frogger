@@ -62,6 +62,9 @@ public:
     /// Returns the coaster type
     object_type type();
 
+    /// Increases speed by dv
+    void inc_speed(int dv);
+
 private:
 
     /// The objects hit box

@@ -48,3 +48,6 @@ std::vector<Home> make_homes(const Game_config&);
 
 /// Determines whether all homes in a vector are occupied
 bool all_occupied(std::vector<Home>);
+
+/// Gets how many homes are occupied in a vector
+int occupied_count(std::vector<Home>);

@@ -11,17 +11,19 @@ type, Position start_pos)
           hostile_(false)
 {
     Dimension body_dims;
-    if(row_num < 4) {
+    if(row_num < Game_config::truck_row) {
         hostile_ = true;
         body_dims = config.coaster_small;
-    }else if(row_num == 4){
+    }else if(row_num == Game_config::truck_row){
         hostile_ = true;
         body_dims = config.coaster_medium;
-    }else if(row_num == 7 || row_num == 9){
+    }else if(row_num == Game_config::small_log_row ||
+             row_num == Game_config::two_turtles_row){
         body_dims = config.coaster_medium;
-    }else if(row_num == 6 || row_num == 10){
+    }else if(row_num == Game_config::three_turtles_row ||
+             row_num == Game_config::medium_log_row ){
         body_dims = config.coaster_long;
-    }else if(row_num == 8){
+    }else if(row_num == Game_config::long_log_row){
         body_dims = config.coaster_longest;
     }else{
         std::cerr << row_num << " is not valid" << std::endl;
@@ -105,6 +107,13 @@ Coaster::object_type
 Coaster::type()
 {
     return type_;
+}
+
+void
+Coaster::inc_speed(int dv)
+{
+    velocity_ > 0 ? velocity_ += dv
+                  :  velocity_ -= dv;
 }
 
 

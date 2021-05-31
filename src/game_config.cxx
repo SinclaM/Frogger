@@ -5,7 +5,7 @@ Game_config::Game_config()
           frog_dims(32, 24),
           hop_dist(46, 45),
           start(346, 639),
-          lifetime(60),
+          lifetime(30),
           hop_time(7.0 / 60),
           car_dims(65, 20),
           row_velocities{-30, 30, -30, 70, -50, 0, -40, 50, 80, -50, 30},
@@ -27,14 +27,24 @@ Game_config::Game_config()
                          {457, 88}, {595, 88}},
           forward_step_points(10),
           lilly_pad_points(200),
-          frog_starting_lives(3)
+          frog_starting_lives(3),
+          shift_min(25),
+          shift_max(100),
+          end_game_background_fade(0,0,0, 200),
+          leftmost_life_pos(8, 40),
+          life_spacing(36),
+          score_pos(620, 20),
+          velocity_gain(5),
+          timer_rec(173, 680, 346, 28),
+          timer_color(20, 100, 80),
+          frog_collision_fraction(0.3)
 { }
 
 bool
 Game_config::in_scene(Game_config::Position const pos) const
 {
     return pos.x >= 0 && pos.x <= scene_dims.width &&
-           pos.y >= 0 && pos.y <= scene_dims.height;
+           pos.y >= 0 && pos.y <= scene_dims.height - hop_dist.height;
 }
 
 bool
@@ -56,5 +66,3 @@ Game_config::in_object_scene(Position const pos) const
     return pos.x >= -150 && pos.x - 300 <= scene_dims.width &&
            pos.y >= 0 && pos.y <= scene_dims.height;
 }
-
-

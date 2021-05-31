@@ -44,3 +44,14 @@ all_occupied(std::vector<Home> homes)
     return true;
 }
 
+int
+occupied_count(std::vector<Home> homes)
+{
+    int count = 0;
+    for(auto home : homes){
+        if(home.occupied()){
+            count++;
+        }
+    }
+    return count;
+}

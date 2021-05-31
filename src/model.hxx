@@ -29,6 +29,11 @@ public:
     using Coaster_matrix = std::vector<std::vector<Coaster>>;
 
 private:
+
+    //
+    // PRIVATE DATA MEMBERS
+    //
+
     /// The frog
     Frog frog_;
 
@@ -64,11 +69,15 @@ private:
     bool game_status;
 
 public:
-    /// The game config
+    /// The game config, a public data member
     Game_config const config;
 
     /// Constructor
     explicit Model(Game_config const& config = Game_config());
+
+    //
+    // PUBLIC HELPERS
+    //
 
     /// Updates the state of the game for one frame
     void on_frame(double dt);
@@ -103,4 +112,12 @@ public:
     /// Checks whether the game is over
     bool is_game_over() const;
 
+    /// Increases speeds of all coasters by dv
+    void speed_up(int dv);
+
+    /// Handles frog death
+    void on_frog_death();
+
+    /// Gets the life clock
+    Clock life_clock() const;
 };

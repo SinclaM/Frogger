@@ -59,6 +59,18 @@ Frog::hits(Frog::Rectangle const rec) const
     return true;
 }
 
+bool
+Frog::stict_hits(Frog::Rectangle const rec, Game_config const& config) const
+{
+    Position new_tl(rec.top_left().right_by(
+                            body_.width * config.frog_collision_fraction));
+    Dimesion new_dims(rec.width -
+                 2 * config.frog_collision_fraction * body_.width, rec.height);
+    Rectangle squished_rec(new_tl.x, new_tl.y,
+                           new_dims.width, new_dims.height);
+    return hits(squished_rec);
+}
+
 void
 Frog::move_with(Coaster const coaster, double const dt,
                 Game_config const& config)
@@ -111,5 +123,5 @@ Frog::frog_lives_left()
 void
 Frog::decrement_frog_life()
 {
-    lives_ -= 1;
+    lives_--;
 }
