@@ -41,6 +41,24 @@ Model::Model(Game_config const& config)
     }
 }
 
+
+Model::Model(Coaster_matrix const& coasters, const Game_config& config)
+        : frog_(config),
+          life_clock_(config.lifetime, false),
+          hop_clock_(config.hop_time, false),
+          kill_zone_(config.kill_zone),
+          reset_clock_(config.reset_wait_time, true),
+          config(config),
+          turtle_timer(config.turtle_sumberged_time, false),
+          turtle_torpedo(config.turtle_submerging_time, false),
+          turtles_submersed(config.turtle_sumbersed_for +
+                  config.turtle_sumberged_time,
+                  false),
+          homes_(make_homes(config)),
+          game_status(true),
+          coasters_(coasters)
+{}
+
 void
 Model::on_frame(double dt)
 {
