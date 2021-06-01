@@ -207,11 +207,26 @@ TEST_CASE("Timer runs out"){
 
 TEST_CASE("Objects speed up"){
     Model m;
-    CHECK_FALSE(all_occupied(m.homes()));
-    for(auto& home : m.homes_ref()){
-        home.occupy();
-    }
-    CHECK(all_occupied(m.homes()));
+    m.remove_coasters(); // Let's focus on just one coaster
+    ge211::Posn<int> pos(m.frog().body().top_left().up_by(
+            m.config.hop_dist.height));
+    Coaster c(m.config, Game_config::racecar_1_row, pos);
+    m.add_coaster(c);
+    int speed = abs(c.velocity()); // initial speed
+
+    // Now let's occupy a couple homes and see if the coaster speeds up
+    m.frog_ref().move_to(m.homes()[0].body().top_left(), m.config);
+    CHECK(m.frog().stict_hits(m.homes()[0].body(), m.config));
+    m.on_frame(1.0 / 60); // simulate a frame so the model can update
+    CHECK(occupied_count(m.homes()) == 1);
+    // The car sped up
+    CHECK(abs(m.coasters()[0][0].velocity()) == speed + 5);
+
+    // Let's try that again
+    m.frog_ref().move_to(m.homes()[1].body().top_left(), m.config);
+    m.on_frame(1.0 / 60);
+    CHECK(occupied_count(m.homes()) == 2);
+    CHECK(abs(m.coasters()[0][0].velocity()) == speed + 10);
 }
 
 
@@ -240,6 +255,4 @@ TEST_CASE("Occupying all homes results in a win!")
             CHECK(all_occupied(m.homes()));
         }
     }
-
-
 }

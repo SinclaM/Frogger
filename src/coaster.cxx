@@ -116,4 +116,10 @@ Coaster::inc_speed(int dv)
                   :  velocity_ -= dv;
 }
 
+int
+Coaster::velocity() const
+{
+    return velocity_;
+}
+
 

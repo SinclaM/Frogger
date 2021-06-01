@@ -286,3 +286,15 @@ Model::homes_ref()
 {
     return homes_;
 }
+
+Frog&
+Model::frog_ref()
+{
+    return frog_;
+}
+
+Model::Coaster_matrix
+Model::coasters() const
+{
+    return coasters_;
+}
