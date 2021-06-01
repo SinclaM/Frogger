@@ -19,9 +19,7 @@ Controller::initial_window_dimensions() const
 void
 Controller::on_key(ge211::Key key)
 {
-    // TODO: communicate to the View a way to reorient the sprite based on
-    //  direction (or choose from a different sprite)
-    if(model_.is_game_over() == false) {
+    if(!model_.is_game_over()) {
         if (key == ge211::Key::up()) {
             model_.move_frog({0, -1});
         } else if (key == ge211::Key::down()) {
