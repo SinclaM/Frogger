@@ -5,7 +5,8 @@
 #include "game_config.hxx"
 
 #include <iostream>
-
+/// Clocks are used to in accordance with timed events. They count the time
+/// that passed and can be paused and reset.
 class Clock
 {
 public:

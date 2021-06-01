@@ -2,6 +2,8 @@
 
 #include "model.hxx"
 
+/// The view controlls the visual elements of the game such a the sprite, the
+/// number of lives left, the score, and the timer
 class View
 {
 public:

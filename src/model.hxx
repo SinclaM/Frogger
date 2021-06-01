@@ -14,6 +14,8 @@
 
 #include "home.hxx"
 
+/// The model controls/handles the main logic behind the game such as time
+/// passing, collisions, and the coaster's movement.
 class Model
 {
 public:

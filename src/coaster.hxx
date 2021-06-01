@@ -5,7 +5,8 @@
 #include "game_config.hxx"
 
 #include <iostream>
-/// Interactive objects within the game
+/// Interactive objects within the game that coast across the screen.
+/// Consists of turtles, logs, and cars within the game
 class Coaster
 {
 public:

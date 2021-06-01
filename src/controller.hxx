@@ -5,6 +5,8 @@
 
 #include <ge211.hxx>
 
+/// Controller read user inputs and perform certain tasks based on the
+// inputs, for example the movement of the frog.
 class Controller : public ge211::Abstract_game
 {
 public:

@@ -4,6 +4,8 @@
 
 #include "game_config.hxx"
 
+/// A set of positions at the end of the game that the frog is attempting to
+/// reach. Once all the homes have been occupied by the frog, the player wins.
 class Home{
 public:
 

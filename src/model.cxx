@@ -18,6 +18,8 @@ Model::Model(Game_config const& config)
           config(config)
 
 {
+    // All code within the bracket is for the purpose of intializing the
+    // coasters_ matrix
     ge211::Random_source<int> deviation(-config.random_deviation_range,
                                         config.random_deviation_range);
     ge211::Random_source<int> initial(config.shift_min, config.shift_max);

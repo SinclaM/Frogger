@@ -2,6 +2,8 @@
 
 #include <ge211.hxx>
 
+/// Hold the main configurations for the game such starting position, the
+/// movement distance for the frog, velocities of the coasters, etc...
 struct Game_config{
 
     //

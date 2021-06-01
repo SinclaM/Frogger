@@ -6,7 +6,8 @@
 
 #include "coaster.hxx"
 
-/// A player controlled frog
+/// The frog that the player controllers in the game. Can be moved, and
+/// reset, has lives, a timer, and can interact with coasters.
 class Frog
 {
 public:
