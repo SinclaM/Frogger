@@ -244,3 +244,15 @@ Model::life_clock() const
 {
     return life_clock_;
 }
+
+void
+Model::remove_coasters()
+{
+    coasters_ = {};
+}
+
+void
+Model::add_coaster(Coaster coaster)
+{
+    coasters_.push_back({coaster});
+}

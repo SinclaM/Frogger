@@ -93,7 +93,7 @@ private:
     Image const home_sprite;
 
     /// Score Sprite
-    ge211::Font sans25{"sans.ttf", 25};
+    ge211::Font sans25;
     ge211::Text_sprite score_sprite;
 
     /// Lives Sprite
@@ -103,8 +103,9 @@ private:
     ge211::Text_sprite end_game_score;
     ge211::Text_sprite game_over_text;
     ge211::Text_sprite your_score_text;
-    ge211::Font end_game_score_font{"sans.ttf", 50};
-    ge211::Rectangle_sprite end_game_fade;
+    ge211::Font end_game_score_font;
+    ge211::Rectangle_sprite end_game_fade_loss;
+    ge211::Rectangle_sprite end_game_fade_win;
 
     /// Sprite for timer
     ge211::Rectangle_sprite timer_sprite;

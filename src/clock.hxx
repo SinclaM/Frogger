@@ -33,6 +33,9 @@ public:
     /// Return whether the clock is paused or not
     bool is_paused() const;
 
+    /// Sets the time on a clock, used for testing
+    void set_time(double);
+
 private:
     /// The maximum time on the clock (in seconds)
     double max_time_;
