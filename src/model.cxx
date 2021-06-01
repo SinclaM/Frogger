@@ -16,6 +16,7 @@ Model::Model(Game_config const& config)
           homes_(make_homes(config)),
           game_status(true),
           config(config)
+
 {
     ge211::Random_source<int> deviation(-config.random_deviation_range,
                                         config.random_deviation_range);
@@ -23,7 +24,7 @@ Model::Model(Game_config const& config)
     for(size_t i = 0; i < config.coaster_rows.size(); i++) {
         std::vector<Coaster> vec;
         int row_shift = initial.next();
-        for (size_t j = 0; j < config.coaster_rows[i]; j++) {
+        for (int j = 0; j < config.coaster_rows[i]; j++) {
             int x_step = config.spacings[i];
             int y_step = config.hop_dist.height + 1;
             Position pos(row_shift + x_step * j + deviation.next(),
@@ -48,7 +49,6 @@ Model::Model(Coaster_matrix const& coasters, const Game_config& config)
           hop_clock_(config.hop_time, false),
           kill_zone_(config.kill_zone),
           reset_clock_(config.reset_wait_time, true),
-          config(config),
           turtle_timer(config.turtle_sumberged_time, false),
           turtle_torpedo(config.turtle_submerging_time, false),
           turtles_submersed(config.turtle_sumbersed_for +
@@ -56,7 +56,8 @@ Model::Model(Coaster_matrix const& coasters, const Game_config& config)
                   false),
           homes_(make_homes(config)),
           game_status(true),
-          coasters_(coasters)
+          coasters_(coasters),
+          config(config)
 {}
 
 void

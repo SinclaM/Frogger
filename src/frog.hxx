@@ -95,7 +95,7 @@ private:
     int score_;
 
     /// The frog's highest y_position in the given life, used to determine
-    // when to give points for forward movements
+    /// when to give points for forward movements
     int highest_y_pos;
 
     /// The number of lives the frog has

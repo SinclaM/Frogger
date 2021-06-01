@@ -4,12 +4,6 @@
 
 #include <iostream>
 
-//
-// TODO: Write preliminary model tests.
-//
-// These tests should demonstrate at least six of the functional
-// requirements.
-//
 
 TEST_CASE("Frog moves")
 {
@@ -85,13 +79,6 @@ TEST_CASE("Frog hits car")
     // Death animation means no extra life lost
     CHECK(m.frog().frog_lives_left() == 2);
 }
-
-/// Test cases to add:
-//Frog standing on turtles and logs
-// Coasters increasing in speed with each home hit
-//Losing all lives causes loss
-// Running out of time causes loss
-// winning the game
 
 TEST_CASE("Frog Standing on moving passive objects")
 {
@@ -232,25 +219,79 @@ TEST_CASE("Objects speed up"){
 
 TEST_CASE("Occupying all homes results in a win!")
 {
+    // Creates a model
     Model m;
 
-
+    // iterates over all the homes
     for(size_t ct = 0; ct < m.homes_ref().size(); ct++)
     {
-
+        // Check that the home is unoccupied
         CHECK_FALSE(m.homes_ref().at(ct).occupied());
 
-
+        // occupy the home
         m.homes_ref().at(ct).occupy();
 
+        //check that the home is now occuppied
         CHECK(m.homes_ref().at(ct).occupied());
+
+
         if(ct < 4)
         {
-
+            // check that the game is not yet over
             CHECK_FALSE(m.is_game_over());
         }
         else
         {
+            // after occcupying all homes, check that the game is over, and
+            // that all the homes are in fact occuppied. This is the
+            // condition for a game win
+            CHECK(m.is_game_over());
+            CHECK(all_occupied(m.homes()));
+        }
+    }
+}
+
+TEST_CASE("Occupying homes with the frog")
+{
+    // Creates a model
+    Model m;
+
+    // iterates over all the homes
+    for(size_t ct = 0; ct < m.homes_ref().size(); ct++)
+    {
+        // Checks that the home is not occcupied
+        CHECK_FALSE(m.homes_ref().at(ct).occupied());
+
+        // moves the frog over the home
+        m.frog_ref().move_to(m.homes_ref().at(ct).body().center(), m.config);
+
+        //runs the game for 1/60 of a second
+        m.on_frame(1.0/60);
+
+        // Checks that the home is now occupied
+        CHECK(m.homes_ref().at(ct).occupied());
+
+        // runs a check on only the first iteration of the for loop that
+        // moving a frog to an already occupied lillypad kills it
+        if(ct == 0)
+        {
+            m.frog_ref().move_to(m.homes_ref().at(ct).body().center(), m.config);
+
+            m.on_frame(1.0/60);
+
+            CHECK_FALSE(m.frog().alive);
+        }
+
+        if(ct < 4)
+        {
+            //Checks that the game is not yet over
+            CHECK_FALSE(m.is_game_over());
+        }
+        else
+        {
+            // on the final iteration of the for loop, checks that the game
+            // is over and that all the lillypads are ocuppied, this is the
+            // condition for a game win.
             CHECK(m.is_game_over());
             CHECK(all_occupied(m.homes()));
         }

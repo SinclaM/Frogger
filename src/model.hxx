@@ -49,9 +49,6 @@ private:
     /// The time the frog waits before resetting after dying
     Clock reset_clock_;
 
-    /// Vector of Vectors containing the interactive objects in each row
-    Coaster_matrix coasters_;
-
     /// Clock determining when the turtle submerges
     Clock turtle_timer;
 
@@ -67,6 +64,9 @@ private:
 
     /// Determines whether the games is still live (true) or dead (false)
     bool game_status;
+
+    /// Vector of Vectors containing the interactive objects in each row
+    Coaster_matrix coasters_;
 
 public:
     /// The game config, a public data member
