@@ -98,7 +98,7 @@ TEST_CASE("Frog Standing on moving passive objects")
     // create a model with only the single coaster created above
     Model m(coasters);
 
-    // Create a Posn with the inital frog position
+    // Create a posn with the initial frog position
     Model::Position initial_frog_position{m.config.start.x - m.config
     .frog_dims.width /2 , m.config.start.y};
 
@@ -232,7 +232,7 @@ TEST_CASE("Occupying all homes results in a win!")
         // occupy the home
         m.homes_ref().at(ct).occupy();
 
-        //check that the home is now occuppied
+        //check that the home is now occupied
         CHECK(m.homes_ref().at(ct).occupied());
 
 
@@ -243,8 +243,8 @@ TEST_CASE("Occupying all homes results in a win!")
         }
         else
         {
-            // after occcupying all homes, check that the game is over, and
-            // that all the homes are in fact occuppied. This is the
+            // after occupying all homes, check that the game is over, and
+            // that all the homes are in fact occupied. This is the
             // condition for a game win
             CHECK(m.is_game_over());
             CHECK(all_occupied(m.homes()));
@@ -260,7 +260,7 @@ TEST_CASE("Occupying homes with the frog")
     // iterates over all the homes
     for(size_t ct = 0; ct < m.homes_ref().size(); ct++)
     {
-        // Checks that the home is not occcupied
+        // Checks that the home is not occupied
         CHECK_FALSE(m.homes_ref().at(ct).occupied());
 
         // moves the frog over the home
@@ -273,7 +273,7 @@ TEST_CASE("Occupying homes with the frog")
         CHECK(m.homes_ref().at(ct).occupied());
 
         // runs a check on only the first iteration of the for loop that
-        // moving a frog to an already occupied lillypad kills it
+        // moving a frog to an already occupied home kills it
         if(ct == 0)
         {
             m.frog_ref().move_to(m.homes_ref().at(ct).body().center(),
@@ -292,7 +292,7 @@ TEST_CASE("Occupying homes with the frog")
         else
         {
             // on the final iteration of the for loop, checks that the game
-            // is over and that all the lillypads are ocuppied, this is the
+            // is over and that all the homes are occupied, this is the
             // condition for a game win.
             CHECK(m.is_game_over());
             CHECK(all_occupied(m.homes()));
