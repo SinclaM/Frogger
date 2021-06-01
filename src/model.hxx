@@ -129,4 +129,7 @@ public:
 
     /// Add a coaster naively (as a new row all by itself), used for testing
     void add_coaster(Coaster);
+
+    /// Set time on hop clock, used for testing
+    void set_hop_clock_time(double t);
 };
