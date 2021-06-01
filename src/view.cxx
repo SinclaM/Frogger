@@ -26,12 +26,16 @@ View::View(Model const& model)
           three_turtles_diving_sprite("three_turtles_diving.png"),
           home_sprite("home.png"),
           // score_sprite(),
+          sans25("sans.ttf", model.config.small_font_size),
           life_sprite("life.png"),
           // end_game_score(),
           // game_over_text(),
           // your_score_text(),
-          end_game_fade({model.config.scene_dims},
-                        model.config.end_game_background_fade),
+          end_game_score_font("sans.ttf", model.config.large_font_size),
+          end_game_fade_loss(model.config.scene_dims,
+                             model.config.end_game_background_fade_loss),
+          end_game_fade_win(model.config.scene_dims,
+                            model.config.end_game_background_fade_win),
           timer_sprite(model.config.timer_rec.dimensions(),
                        model.config.timer_color)
 { }
@@ -201,10 +205,20 @@ View::draw_lives(ge211::Sprite_set& set)
 void
 View::draw_game_over(ge211::Sprite_set& set)
 {
-    set.add_sprite(end_game_fade, ge211::the_origin, top_screen_layer);
+    if(all_occupied(model_.homes())){
+        set.add_sprite(end_game_fade_win, ge211::the_origin,
+                       top_screen_layer);
+    }else{
+        set.add_sprite(end_game_fade_loss, ge211::the_origin,
+                       top_screen_layer);
+    }
 
     ge211::Text_sprite::Builder game_over_builder(end_game_score_font);
-    game_over_builder.color(ge211::Color::white()) << "Game Over";
+    if(all_occupied(model_.homes())) {
+        game_over_builder.color(ge211::Color::white()) << "You win!";
+    }else{
+        game_over_builder.color(ge211::Color::white()) << "Game Over.";
+    }
     game_over_text.reconfigure(game_over_builder);
     set.add_sprite(game_over_text, {model_.config.scene_dims.width / 2 -
                                     game_over_text.dimensions().width / 2,

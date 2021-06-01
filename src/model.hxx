@@ -120,4 +120,10 @@ public:
 
     /// Gets the life clock
     Clock life_clock() const;
+
+    /// Removes all coasters, used for testing
+    void remove_coasters();
+
+    /// Add a coaster naively (as a new row all by itself), used for testing
+    void add_coaster(Coaster);
 };

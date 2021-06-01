@@ -118,12 +118,23 @@ struct Game_config{
     /// shift applied to all coasters in a row, but different for each row
     int shift_max;
 
+    /// Fraction of the frog which must be colliding with a platform or home
+    /// before the frog will fall into the water. The most lenient collision
+    /// detection would have a value of 0 (the edges can touch and the frog
+    /// will still be on it). The most strict collision detection would have
+    /// a value of 1 (the frog must be entirely on the platform or it will
+    ///  fall off)
+    double frog_collision_fraction;
+
     //
     // Config for the View
     //
 
-    /// Color for the game over background
-    ge211::Color end_game_background_fade;
+    /// Color for the game-over background on loss
+    ge211::Color end_game_background_fade_loss;
+
+    /// Color for the game-over background on victory
+    ge211::Color end_game_background_fade_win;
 
     /// Position (top left) of leftmost life sprite
     Position leftmost_life_pos;
@@ -143,13 +154,11 @@ struct Game_config{
     /// Color that the timer will be drawn with
     ge211::Color timer_color;
 
-    /// Fraction of the frog which must be colliding with a platform or home
-    /// before the frog will fall into the water. The most lenient collision
-    /// detection would have a value of 0 (the edges can touch and the frog
-    /// will still be on it). The most strict collision detection would have
-    /// a value of 1 (the frog must be entirely on the platform or it will
-    ///  fall off)
-    double frog_collision_fraction;
+    /// Small font size for the view
+    int small_font_size;
+
+    /// Large font size for the view
+    int large_font_size;
 
 
     //

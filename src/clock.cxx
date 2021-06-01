@@ -48,6 +48,12 @@ Clock::is_paused() const
     return paused_;
 }
 
+void
+Clock::set_time(double time)
+{
+    current_time_ = time;
+}
+
 
 std::ostream&
 operator<<(std::ostream& o, Clock const& clock)

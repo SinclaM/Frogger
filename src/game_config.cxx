@@ -30,14 +30,17 @@ Game_config::Game_config()
           frog_starting_lives(3),
           shift_min(25),
           shift_max(100),
-          end_game_background_fade(0,0,0, 200),
+          frog_collision_fraction(0.3),
+          end_game_background_fade_loss(0,0,0, 200),
+          end_game_background_fade_win(0, 63, 0, 200),
           leftmost_life_pos(8, 40),
           life_spacing(36),
           score_pos(620, 20),
           velocity_gain(5),
           timer_rec(173, 680, 346, 28),
           timer_color(20, 100, 80),
-          frog_collision_fraction(0.3)
+          small_font_size(25),
+          large_font_size(50)
 { }
 
 bool
