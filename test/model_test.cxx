@@ -207,5 +207,9 @@ TEST_CASE("Timer runs out"){
 
 TEST_CASE("Objects speed up"){
     Model m;
-
+    CHECK_FALSE(all_occupied(m.homes()));
+    for(auto& home : m.homes_ref()){
+        home.occupy();
+    }
+    CHECK(all_occupied(m.homes()));
 }

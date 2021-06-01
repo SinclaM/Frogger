@@ -280,3 +280,9 @@ Model::set_hop_clock_time(double t)
 {
     hop_clock_.set_time(t);
 }
+
+std::vector<Home>&
+Model::homes_ref()
+{
+    return homes_;
+}

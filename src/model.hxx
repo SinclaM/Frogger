@@ -132,4 +132,7 @@ public:
 
     /// Set time on hop clock, used for testing
     void set_hop_clock_time(double t);
+
+    /// Get homes by reference, used for testing
+    std::vector<Home>& homes_ref();
 };
