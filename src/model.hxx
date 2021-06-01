@@ -75,6 +75,9 @@ public:
     /// Constructor
     explicit Model(Game_config const& config = Game_config());
 
+    /// Constructor for testing, where we can manually add coasters
+    Model(Coaster_matrix const&, Game_config const& config = Game_config());
+
     //
     // PUBLIC HELPERS
     //
