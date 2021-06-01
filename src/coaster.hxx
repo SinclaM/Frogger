@@ -36,38 +36,39 @@ public:
     /// Constructor which takes no object_type argument
     explicit Coaster(Game_config const&, int row_num, Position);
 
-    /// Moves the object to the desired x value
-    void move_to(int x, Game_config const&);
-
-    /// Moves the object in time by one unit
-    void move(double const dt, Game_config const&);
-
     /// Returns the position of the coaster
     Position coaster_pos() const;
 
     /// Gets the body rectangle
     Rectangle body() const;
 
-    /// Gets hostility
-    bool is_hostile() const;
+    /// Gets the change in x position a coaster will move in time dt
+    double dx(double const dt) const;
 
     /// Gets the row number
     int row() const;
 
+    /// Gets velocity
+    int velocity() const;
+
+    /// Gets hostility
+    bool is_hostile() const;
+
+    /// Moves the object to the desired x value
+    void move_to(int x, Game_config const&);
+
+    /// Moves the object in time by one unit
+    void move(double const dt, Game_config const&);
+
     /// submerges the turtle
     void submerge_turtle();
-
-    /// Gets the change in x position a coaster will move in time dt
-    double dx(double const dt) const;
-
-    /// Returns the coaster type
-    object_type type();
 
     /// Increases speed by dv
     void inc_speed(int dv);
 
-    /// Gets velocity
-    int velocity() const;
+    /// Returns the coaster type
+    object_type type();
+
 
 private:
 

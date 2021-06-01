@@ -36,6 +36,42 @@ Coaster::Coaster(Game_config const& config, int row_num, Position pos)
         : Coaster(config, row_num, other, pos)
 { }
 
+Coaster::Position
+Coaster::coaster_pos() const
+{
+    return {body_.x, body_.y};
+}
+
+Coaster::Rectangle
+Coaster::body() const
+{
+    return body_;
+}
+
+double
+Coaster::dx(double const dt) const
+{
+    return dt * velocity_;
+}
+
+int
+Coaster::row() const
+{
+    return row_;
+}
+
+int
+Coaster::velocity() const
+{
+    return velocity_;
+}
+
+bool
+Coaster::is_hostile() const
+{
+    return hostile_;
+}
+
 void Coaster::move_to(int x_pos, const Game_config& config)
 {
     if(config.in_object_scene({x_pos, body_.center().y})){
@@ -59,24 +95,6 @@ void Coaster::move(double const dt, const Game_config& config)
     move_to(x_, config);
 }
 
-Coaster::Position
-Coaster::coaster_pos() const
-{
-    return {body_.x, body_.y};
-}
-
-Coaster::Rectangle
-Coaster::body() const
-{
-    return body_;
-}
-
-bool
-Coaster::is_hostile() const
-{
-    return hostile_;
-}
-
 void
 Coaster::submerge_turtle()
 {
@@ -91,24 +109,6 @@ Coaster::submerge_turtle()
     }
 }
 
-int
-Coaster::row() const
-{
-    return row_;
-}
-
-double
-Coaster::dx(double const dt) const
-{
-    return dt * velocity_;
-}
-
-Coaster::object_type
-Coaster::type()
-{
-    return type_;
-}
-
 void
 Coaster::inc_speed(int dv)
 {
@@ -116,10 +116,10 @@ Coaster::inc_speed(int dv)
                   :  velocity_ -= dv;
 }
 
-int
-Coaster::velocity() const
+Coaster::object_type
+Coaster::type()
 {
-    return velocity_;
+    return type_;
 }
 
 

@@ -14,6 +14,12 @@ public:
     /// current_time to the given parameter and paused_ to false
     Clock(double const, bool const);
 
+    /// Returns current_time
+    double time() const;
+
+    /// Return whether the clock is paused or not
+    bool is_paused() const;
+
     /// Removes dt seconds from the current_time_, or sets current_time_ to 0
     /// if subtracting dt would make it negative, so long as the clock is not
     /// paused.
@@ -22,17 +28,11 @@ public:
     /// Sets current_time to max_time
     void reset();
 
-    /// Returns current_time
-    double time() const;
-
     /// Pauses the clock
     void pause();
 
     /// Resumes the clock
     void resume();
-
-    /// Return whether the clock is paused or not
-    bool is_paused() const;
 
     /// Sets the time on a clock, used for testing
     void set_time(double);
