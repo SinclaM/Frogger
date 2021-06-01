@@ -55,5 +55,3 @@ bool all_occupied(std::vector<Home>);
 
 /// Makes a vector of homes as specified by the game config
 std::vector<Home> make_homes(const Game_config&);
-
-

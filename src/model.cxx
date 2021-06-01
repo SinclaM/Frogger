@@ -4,9 +4,9 @@
 
 Model::Model(Game_config const& config)
         : frog_(config),
+          kill_zone_(config.kill_zone),
           life_clock_(config.lifetime, false),
           hop_clock_(config.hop_time, false),
-          kill_zone_(config.kill_zone),
           reset_clock_(config.reset_wait_time, true),
           turtle_timer(config.turtle_sumberged_time, false),
           turtle_torpedo(config.turtle_submerging_time, false),
@@ -47,9 +47,9 @@ Model::Model(Game_config const& config)
 
 Model::Model(Coaster_matrix const& coasters, const Game_config& config)
         : frog_(config),
+          kill_zone_(config.kill_zone),
           life_clock_(config.lifetime, false),
           hop_clock_(config.hop_time, false),
-          kill_zone_(config.kill_zone),
           reset_clock_(config.reset_wait_time, true),
           turtle_timer(config.turtle_sumberged_time, false),
           turtle_torpedo(config.turtle_submerging_time, false),
@@ -57,10 +57,10 @@ Model::Model(Coaster_matrix const& coasters, const Game_config& config)
                   config.turtle_sumberged_time,
                   false),
           homes_(make_homes(config)),
-          game_status(true),
           coasters_(coasters),
+          game_status(true),
           config(config)
-{}
+{ }
 
 void
 Model::on_frame(double dt)
@@ -171,6 +171,34 @@ Model::frog() const
 }
 
 void
+Model::on_frog_death()
+{
+    frog_.alive = false;
+    life_clock_.reset();
+    life_clock_.pause();
+    if (frog_.frog_lives_left() == 0){
+        game_status = false;
+    }else{
+        reset_clock_.resume();
+        frog_.decrement_frog_life();
+    }
+}
+
+const Coaster*
+Model::frog_on_platform() const
+{
+    for(auto& vec : coasters_){
+        for(auto& coaster : vec){
+            if(frog_.stict_hits(coaster.body(), config) &&
+               !coaster.is_hostile()){
+                return &coaster;
+            }
+        }
+    }
+    return nullptr;
+}
+
+void
 Model::move_coasters(double const dt, Model::Coaster_matrix& matrix)
 {
     for(auto& vec : matrix){
@@ -187,6 +215,16 @@ Model::get_coasters() const
 }
 
 void
+Model::speed_up(int dv)
+{
+    for(auto& vec : coasters_){
+        for(auto& coaster : vec){
+            coaster.inc_speed(dv);
+        }
+    }
+}
+
+void
 Model::turtles_submerge()
 {
     for (auto& vec : coasters_){
@@ -194,20 +232,6 @@ Model::turtles_submerge()
             obj.submerge_turtle();
         }
     }
-}
-
-const Coaster*
-Model::frog_on_platform() const
-{
-    for(auto& vec : coasters_){
-        for(auto& coaster : vec){
-            if(frog_.stict_hits(coaster.body(), config) &&
-                                     !coaster.is_hostile()){
-                return &coaster;
-            }
-        }
-    }
-    return nullptr;
 }
 
 Home*
@@ -227,6 +251,12 @@ Model::homes() const
     return homes_;
 }
 
+Clock
+Model::life_clock() const
+{
+    return life_clock_;
+}
+
 bool
 Model::is_game_over() const
 {
@@ -234,36 +264,6 @@ Model::is_game_over() const
         return true;
     }
     return false;
-}
-
-void
-Model::speed_up(int dv)
-{
-    for(auto& vec : coasters_){
-        for(auto& coaster : vec){
-            coaster.inc_speed(dv);
-        }
-    }
-}
-
-void
-Model::on_frog_death()
-{
-    frog_.alive = false;
-    life_clock_.reset();
-    life_clock_.pause();
-    if (frog_.frog_lives_left() == 0){
-        game_status = false;
-    }else{
-        reset_clock_.resume();
-        frog_.decrement_frog_life();
-    }
-}
-
-Clock
-Model::life_clock() const
-{
-    return life_clock_;
 }
 
 void
@@ -276,6 +276,12 @@ void
 Model::add_coaster(Coaster coaster)
 {
     coasters_.push_back({coaster});
+}
+
+Model::Coaster_matrix
+Model::coasters() const
+{
+    return coasters_;
 }
 
 void
@@ -294,10 +300,4 @@ Frog&
 Model::frog_ref()
 {
     return frog_;
-}
-
-Model::Coaster_matrix
-Model::coasters() const
-{
-    return coasters_;
 }
