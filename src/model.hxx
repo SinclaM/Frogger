@@ -135,4 +135,10 @@ public:
 
     /// Get homes by reference, used for testing
     std::vector<Home>& homes_ref();
+
+    /// Get frog by reference, used for testing
+    Frog& frog_ref();
+
+    /// Get coasters, used for testing
+    Coaster_matrix coasters() const;
 };

@@ -65,6 +65,9 @@ public:
     /// Increases speed by dv
     void inc_speed(int dv);
 
+    /// Gets velocity
+    int velocity() const;
+
 private:
 
     /// The objects hit box
