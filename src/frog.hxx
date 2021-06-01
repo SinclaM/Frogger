@@ -24,8 +24,7 @@ public:
     using Position = ge211::Posn<int>;
     using Rectangle = ge211::Rect<int>;
 
-    /// If the frog is alive (able to move) or dead (awaiting to be reset)
-    bool alive;
+
 
     //
     // PUBLIC MEMBER FUNCTIONS
@@ -34,8 +33,20 @@ public:
     /// Default constructor
     explicit Frog(Game_config const&);
 
-    /// Move body_ by the step size in the specified direction
-    void move(Direction, Game_config const&);
+    /// Gets frog's direction
+    Direction facing() const;
+
+    /// Gets frog's body
+    Rectangle body() const;
+
+    /// Gets the frog's score
+    int get_frog_score();
+
+    /// Returns the frog's lives
+    int frog_lives_left();
+
+    /// If the frog is alive (able to move) or dead (awaiting to be reset)
+    bool alive;
 
     /// Move body_ (top left) to specified position, if the position is valid.
     /// Returns true if the frog has been moved, false otherwise.
@@ -44,11 +55,8 @@ public:
     /// frog is facing
     bool move_to(Position, Game_config const&);
 
-    /// Gets frog's direction
-    Direction facing() const;
-
-    /// Gets frog's body
-    Rectangle body() const;
+    /// Move body_ by the step size in the specified direction
+    void move(Direction, Game_config const&);
 
     /// Detects collision between body_ and a rectangle
     bool hits(Rectangle const) const;
@@ -65,14 +73,10 @@ public:
     /// Increases the frogs score for lillypads
     void increment_score_for_lillypad(Game_config const&);
 
-    /// Gets the frog's score
-    int get_frog_score();
-
-    /// Returns the frog's lives
-    int frog_lives_left();
-
     /// Decrements the frog's lives by one
     void decrement_frog_life();
+
+
 
 private:
 
@@ -80,14 +84,14 @@ private:
     // PRIVATE MEMBER VARIABLES
     //
 
-    /// The frog's hit box, a positioned rectangle
-    Rectangle body_;
+    /// The direction the frog is facing
+    Direction facing_;
 
     /// How far the frog moves per hop in x and y directions
     Dimesion hop_dist_;
 
-    /// The direction the frog is facing
-    Direction facing_;
+    /// The frog's hit box, a positioned rectangle
+    Rectangle body_;
 
     /// Real x value of the body
     double x_;
@@ -102,6 +106,7 @@ private:
     /// The number of lives the frog has
     int lives_;
 
+    // Helper Functions:
     /// Increases the frog's score by the specified amount
     void increment_score(int);
 };

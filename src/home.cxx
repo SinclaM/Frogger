@@ -5,14 +5,10 @@ Home::Home(Game_config const& config, Home::Position pos)
           occupied_(false)
 { }
 
-std::vector<Home>
-make_homes(Game_config const& config)
+Home::Rectangle
+Home::body() const
 {
-    std::vector<Home> homes;
-    for(auto pos : config.home_locations){
-        homes.push_back(Home{config, pos});
-    }
-    return homes;
+    return body_;
 }
 
 bool
@@ -27,10 +23,16 @@ Home::occupy()
     occupied_ = true;
 }
 
-Home::Rectangle
-Home::body() const
+int
+occupied_count(std::vector<Home> homes)
 {
-    return body_;
+    int count = 0;
+    for(auto home : homes){
+        if(home.occupied()){
+            count++;
+        }
+    }
+    return count;
 }
 
 bool
@@ -44,14 +46,21 @@ all_occupied(std::vector<Home> homes)
     return true;
 }
 
-int
-occupied_count(std::vector<Home> homes)
+std::vector<Home>
+make_homes(Game_config const& config)
 {
-    int count = 0;
-    for(auto home : homes){
-        if(home.occupied()){
-            count++;
-        }
+    std::vector<Home> homes;
+    for(auto pos : config.home_locations){
+        homes.push_back(Home{config, pos});
     }
-    return count;
+    return homes;
 }
+
+
+
+
+
+
+
+
+
