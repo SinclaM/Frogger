@@ -68,8 +68,23 @@ TEST_CASE("Frog hits car")
     CHECK(m.frog().hits(c.body()));
     CHECK(m.frog().frog_lives_left() == 3);
 
+    // simulate one frame
+    double const dt = 1.0 / 60;
+    m.on_frame(dt);
 
+    CHECK(m.frog().hits(c.body()));
+    CHECK(c.is_hostile());
+    CHECK_FALSE(m.frog().alive);
+    CHECK(m.frog().frog_lives_left() == 2);
 
+    // another frame, while the frog's death animation plays
+    m.on_frame(dt);
+    CHECK(m.frog().hits(c.body()));
+    CHECK_FALSE(m.frog().alive);
+
+    // Death animation means no extra life lost
+    CHECK(m.frog().frog_lives_left() == 2);
+}
 
 /// Test cases to add:
 //Frog standing on turtles and logs
@@ -127,25 +142,6 @@ TEST_CASE("Frog Standing on moving passive objects")
 
     // Checks that the expected final position and ending position are equal
     CHECK(actual_frog_position == frog_ending_pos);
-
-
-
-    // simulate one frame
-    double const dt = 1.0 / 60;
-    m.on_frame(dt);
-
-    CHECK(m.frog().hits(c.body()));
-    CHECK(c.is_hostile());
-    CHECK_FALSE(m.frog().alive);
-    CHECK(m.frog().frog_lives_left() == 2);
-
-    // another frame, while the frog's death animation plays
-    m.on_frame(dt);
-    CHECK(m.frog().hits(c.body()));
-    CHECK_FALSE(m.frog().alive);
-
-    // Death animation means no extra life lost
-    CHECK(m.frog().frog_lives_left() == 2);
 }
 
 TEST_CASE("Timer runs out"){
