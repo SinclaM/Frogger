@@ -103,6 +103,4 @@ private:
 
     /// Increases the frog's score by the specified amount
     void increment_score(int);
-
-
 };

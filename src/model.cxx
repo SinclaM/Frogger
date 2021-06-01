@@ -8,14 +8,14 @@ Model::Model(Game_config const& config)
           hop_clock_(config.hop_time, false),
           kill_zone_(config.kill_zone),
           reset_clock_(config.reset_wait_time, true),
-          config(config),
           turtle_timer(config.turtle_sumberged_time, false),
           turtle_torpedo(config.turtle_submerging_time, false),
           turtles_submersed(config.turtle_sumbersed_for +
                             config.turtle_sumberged_time,
                             false),
           homes_(make_homes(config)),
-          game_status(true)
+          game_status(true),
+          config(config)
 {
     ge211::Random_source<int> deviation(-config.random_deviation_range,
                                         config.random_deviation_range);
@@ -255,4 +255,10 @@ void
 Model::add_coaster(Coaster coaster)
 {
     coasters_.push_back({coaster});
+}
+
+void
+Model::set_hop_clock_time(double t)
+{
+    hop_clock_.set_time(t);
 }

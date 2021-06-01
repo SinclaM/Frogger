@@ -38,9 +38,6 @@ struct Game_config{
     /// The minimum time between frog hops
     double hop_time;
 
-    /// Car dimensions
-    Dimension car_dims;
-
     /// The water kill_zone
     Rectangle kill_zone;
 
@@ -53,18 +50,6 @@ struct Game_config{
     /// Number of coasters in each row
     std::vector<int> coaster_rows;
 
-    /// Dimensions of short log
-    Dimension short_log_dims;
-
-    ///Dimensions of medium log
-    Dimension medium_log_dims;
-
-    /// Dimensions of long log
-    Dimension long_log_dims;
-
-    /// Dimensions of for three turtles
-    Dimension three_turtle_dims;
-
     /// Time for turtle submersion
     double turtle_sumberged_time;
 
@@ -73,9 +58,6 @@ struct Game_config{
 
     /// Time turtles are submerged for
     double turtle_sumbersed_for;
-
-    /// Dimensions for two turtles
-    Dimension two_turtle_dims;
 
     /// Top of the first coaster lane
     int bottom_lane_y;
@@ -104,7 +86,7 @@ struct Game_config{
     /// Points awarded for forward steps
     int forward_step_points;
 
-    /// Points awarded for reaching a lillypad
+    /// Points awarded for reaching a home
     int lilly_pad_points;
 
     /// Frog starting lives

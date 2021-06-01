@@ -1,11 +1,11 @@
 ﻿#include "frog.hxx"
 
 Frog::Frog(Game_config const& config)
-        : body_(config.start.x - config.frog_dims.width / 2, config.start.y,
+        : alive(true),
+          body_(config.start.x - config.frog_dims.width / 2, config.start.y,
                 config.frog_dims.width, config.frog_dims.height),
           hop_dist_(config.hop_dist),
           facing_(0, -1),
-          alive(true),
           x_(config.start.x),
           score_(0),
           highest_y_pos(config.start.y),
