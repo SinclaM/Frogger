@@ -228,3 +228,31 @@ TEST_CASE("Objects speed up"){
     CHECK(occupied_count(m.homes()) == 2);
     CHECK(abs(m.coasters()[0][0].velocity()) == speed + 10);
 }
+
+
+TEST_CASE("Occupying all homes results in a win!")
+{
+    Model m;
+
+
+    for(size_t ct = 0; ct < m.homes_ref().size(); ct++)
+    {
+
+        CHECK_FALSE(m.homes_ref().at(ct).occupied());
+
+
+        m.homes_ref().at(ct).occupy();
+
+        CHECK(m.homes_ref().at(ct).occupied());
+        if(ct < 4)
+        {
+
+            CHECK_FALSE(m.is_game_over());
+        }
+        else
+        {
+            CHECK(m.is_game_over());
+            CHECK(all_occupied(m.homes()));
+        }
+    }
+}
