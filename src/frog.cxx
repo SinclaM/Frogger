@@ -2,39 +2,15 @@
 
 Frog::Frog(Game_config const& config)
         : alive(true),
+          facing_(0, -1),
+          hop_dist_(config.hop_dist),
           body_(config.start.x - config.frog_dims.width / 2, config.start.y,
                 config.frog_dims.width, config.frog_dims.height),
-          hop_dist_(config.hop_dist),
-          facing_(0, -1),
           x_(config.start.x),
           score_(0),
           highest_y_pos(config.start.y),
           lives_(config.frog_starting_lives)
 { }
-
-void
-Frog::move(Frog::Direction dir, Game_config const& config)
-{
-    if(alive){
-        if (move_to(body_.top_left() + dir * hop_dist_,
-                    config)) {
-            facing_ = dir;
-        }
-    }
-}
-
-bool
-Frog::move_to(Frog::Position pos, Game_config const& config)
-{
-    if(config.in_scene(pos) &&
-            config.in_scene(pos.down_right_by(config.frog_dims))) {
-        body_.x = pos.x;
-        x_ = pos.x;
-        body_.y = pos.y;
-        return true;
-    }
-    return false;
-}
 
 Frog::Direction
 Frog::facing() const
@@ -46,6 +22,42 @@ Frog::Rectangle
 Frog::body() const
 {
     return body_;
+}
+
+int
+Frog::get_frog_score()
+{
+    return score_;
+}
+
+int
+Frog::frog_lives_left()
+{
+    return lives_;
+}
+
+bool
+Frog::move_to(Frog::Position pos, Game_config const& config)
+{
+    if(config.in_scene(pos) &&
+       config.in_scene(pos.down_right_by(config.frog_dims))) {
+        body_.x = pos.x;
+        x_ = pos.x;
+        body_.y = pos.y;
+        return true;
+    }
+    return false;
+}
+
+void
+Frog::move(Frog::Direction dir, Game_config const& config)
+{
+    if(alive){
+        if (move_to(body_.top_left() + dir * hop_dist_,
+                    config)) {
+            facing_ = dir;
+        }
+    }
 }
 
 bool
@@ -85,13 +97,6 @@ Frog::move_with(Coaster const coaster, double const dt,
 }
 
 void
-Frog::increment_score(int increment)
-{
-    score_ += increment;
-}
-
-
-void
 Frog::increment_score_for_foward_steps(Game_config const& config)
 {
     if (body_.y < highest_y_pos)
@@ -108,20 +113,14 @@ Frog::increment_score_for_lillypad(const Game_config& config)
     highest_y_pos = config.start.y;
 }
 
-int
-Frog::get_frog_score()
-{
-    return score_;
-}
-
-int
-Frog::frog_lives_left()
-{
-    return lives_;
-}
-
 void
 Frog::decrement_frog_life()
 {
     lives_--;
+}
+
+void
+Frog::increment_score(int increment)
+{
+    score_ += increment;
 }
