@@ -6,6 +6,19 @@ Clock::Clock(double const max_time, bool const paused)
           paused_(paused)
 { }
 
+
+double
+Clock::time() const
+{
+    return current_time_;
+}
+
+bool
+Clock::is_paused() const
+{
+    return paused_;
+}
+
 void
 Clock::dec(double const dt)
 {
@@ -24,12 +37,6 @@ Clock::reset()
     current_time_ = max_time_;
 }
 
-double
-Clock::time() const
-{
-    return current_time_;
-}
-
 void
 Clock::pause()
 {
@@ -40,12 +47,6 @@ void
 Clock::resume()
 {
     paused_ = false;
-}
-
-bool
-Clock::is_paused() const
-{
-    return paused_;
 }
 
 void
