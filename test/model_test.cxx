@@ -85,3 +85,68 @@ TEST_CASE("Frog hits car")
     // Death animation means no extra life lost
     CHECK(m.frog().frog_lives_left() == 2);
 }
+
+TEST_CASE("Timer runs out"){
+    Model m;
+    m.remove_coasters();
+
+    CHECK(m.life_clock().time() == 30);
+
+    // Simulate a couple frames at 14 seconds per frame
+    double const dt = 14;
+    m.on_frame(dt);
+    CHECK(m.life_clock().time() == 16);
+    CHECK(m.frog().alive);
+    m.on_frame(dt);
+    CHECK(m.life_clock().time() == 2);
+    CHECK(m.frog().alive);
+    CHECK(m.frog().frog_lives_left() == 3);
+    m.on_frame(dt);
+    CHECK(m.life_clock().time() == 30); // Clock has reset
+    CHECK_FALSE(m.frog().alive);
+    CHECK(m.frog().frog_lives_left() == 2); // Life deducted
+    // Time still 30 since reset_clock is active
+    CHECK(m.life_clock().time() == 30);
+
+    // Let the frog reset
+    m.on_frame(dt);
+
+    // Let's have the frog die some more and see if the player loses
+    m.on_frame(dt); // 16
+    CHECK(m.life_clock().time() == 16);
+    m.on_frame(dt); // 2
+    CHECK(m.frog().alive);
+    m.on_frame(dt); // Death
+    CHECK_FALSE(m.frog().alive);
+    CHECK(m.frog().frog_lives_left() == 1);
+
+    // Let the frog reset
+    m.on_frame(dt);
+
+    m.on_frame(dt); // 16
+    CHECK(m.life_clock().time() == 16);
+    m.on_frame(dt); // 2
+    CHECK(m.frog().alive);
+    m.on_frame(dt); // Death
+    CHECK_FALSE(m.frog().alive);
+    CHECK(m.frog().frog_lives_left() == 0);
+
+    // Note: 0 lives does not mean game over. Rather, there are no lives left
+    // in the bank for the frog, meaning one more death is game over.
+    CHECK_FALSE(m.is_game_over());
+
+    // Let the frog reset
+    m.on_frame(dt);
+
+    m.on_frame(dt); // 16
+    CHECK(m.life_clock().time() == 16);
+    m.on_frame(dt); // 2
+    CHECK(m.frog().alive);
+    m.on_frame(dt); // Final death
+    CHECK_FALSE(m.frog().alive);
+    CHECK(m.is_game_over());
+}
+
+TEST_CASE("Objects speed up"){
+    Model m;
+}
