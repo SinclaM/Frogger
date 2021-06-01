@@ -87,7 +87,8 @@ TEST_CASE("Frog Standing on moving passive objects")
     // Create the coaster to be used in the test, a turtle coaster, to be
     // spawned in at the frog's starting position. Test cases for a log or
     // turtle are essentially identical.
-    Coaster c(Game_config(), 6, Coaster::object_type::passive_turtle,
+    Coaster c(Game_config(), 6,
+              Coaster::object_type::passive_turtle,
               {Game_config().start.x,
                Game_config().start.y});
 
@@ -275,7 +276,8 @@ TEST_CASE("Occupying homes with the frog")
         // moving a frog to an already occupied lillypad kills it
         if(ct == 0)
         {
-            m.frog_ref().move_to(m.homes_ref().at(ct).body().center(), m.config);
+            m.frog_ref().move_to(m.homes_ref().at(ct).body().center(),
+                                                            m.config);
 
             m.on_frame(1.0/60);
 

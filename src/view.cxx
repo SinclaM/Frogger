@@ -76,13 +76,16 @@ View::draw_frog(ge211::Sprite_set& set)
             set.add_sprite(frog_up_sprite, model_.frog().body().top_left(),
                            frog_layer);
         } else if (model_.frog().facing() == Direction {1, 0}) {
-            set.add_sprite(frog_right_sprite, model_.frog().body().top_left(),
+            set.add_sprite(frog_right_sprite,
+                           model_.frog().body().top_left(),
                            frog_layer);
         } else if (model_.frog().facing() == Direction {0, 1}) {
-            set.add_sprite(frog_down_sprite, model_.frog().body().top_left(),
+            set.add_sprite(frog_down_sprite,
+                           model_.frog().body().top_left(),
                            frog_layer);
         } else if (model_.frog().facing() == Direction {-1, 0}) {
-            set.add_sprite(frog_left_sprite, model_.frog().body().top_left(),
+            set.add_sprite(frog_left_sprite,
+                           model_.frog().body().top_left(),
                            frog_layer);
         }
     }else{
@@ -196,8 +199,8 @@ View::draw_lives(ge211::Sprite_set& set)
     for(int ct = 0; ct < model_.frog().frog_lives_left(); ct++){
         set.add_sprite(life_sprite,
                        model_.config.leftmost_life_pos.right_by(
-                                            model_.config.life_spacing * ct),
-                       surface_layer);
+                               model_.config.life_spacing * ct),
+                                surface_layer);
     }
 }
 
